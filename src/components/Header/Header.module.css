@@ -1,0 +1,52 @@
+.header {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+    justify-content: space-between;
+    height: 4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.header__logo {
+    width: 7rem;
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__menu__list {
+    list-style: none;
+    padding-right: 1rem;
+}
+
+.header__menu__list__item {
+    display: inline-block;
+    padding: 0 .5rem;
+    color: #9E85F1;
+}
+
+.header__menu__wallet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .1);
+    padding: .6rem .8rem;
+    backdrop-filter: blur(2rem);
+    border-radius: 5rem;
+}
+
+.header__menu__wallet__name {
+    padding: 0 .5rem;
+    color: white;
+    font-size: 1rem;
+}
+
+.header__menu__wallet__icon {
+    width: 1.8rem;
+}
