@@ -1,0 +1,35 @@
+.header__menu__wallet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .1);
+    padding: .6rem .8rem;
+    backdrop-filter: blur(2rem);
+    border-radius: 5rem;
+}
+
+.header__menu__wallet__name {
+    padding: 0 .5rem;
+    color: white;
+    font-size: 1rem;
+}
+
+.header__menu__wallet__icon {
+    width: 1.8rem;
+}
+
+.header__menu__button {
+    border: none;
+    border-radius: .8rem;
+    background: rgba(158, 133, 241, .2);
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #9E85F1;
+    cursor: pointer;
+    transition: background .4s;
+}
+
+.header__menu__button:hover {
+    background: rgba(158, 133, 241, .4);
+}

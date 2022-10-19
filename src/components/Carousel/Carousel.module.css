@@ -1,4 +1,92 @@
 .carousel {
+    position: relative;
+    max-width: 38.2rem;
+    margin-top: 8rem;
+}
+
+.carousel__counter {
+    position: absolute;
+    top: -2rem;
+    left: 0;
+    margin-bottom: 1rem;
+}
+
+.carousel__counter__text {
+    color: #9E85F1;
+}
+
+.carousel__body {
     display: flex;
-    margin-top: 5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    position: relative;
+}
+
+.carousel__body::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel__buttons {
+    width: 115%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: -7.5%;
+}
+
+.carousel__buttons__left,
+.carousel__buttons__right {
+    background: transparent;
+    transition: opacity .4s;
+    opacity: .7;
+    border: none;
+}
+
+.carousel__buttons__left img,
+.carousel__buttons__right img {
+    width: 1.4rem;
+}
+
+.carousel__buttons__left {
+    transform: rotate(180deg);
+}
+
+.carousel__buttons__left[disabled],
+.carousel__buttons__right[disabled] {
+    opacity: .1 !important;
+    cursor: default;
+}
+
+.carousel__labels {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.carousel__labels__bar {
+    width: 1.4rem;
+    height: .5rem;
+    border-radius: 1rem;
+    background: #9E85F1;
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    transition: left .4s;
+}
+
+.carousel__labels__point {
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background: #fff;
+    margin-right: .4rem;
+    opacity: .3;
 }

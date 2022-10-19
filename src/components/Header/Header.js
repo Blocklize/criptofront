@@ -4,7 +4,8 @@ import React from 'react'
 import styles from "./Header.module.css"
 // Assets
 import Logo from "../../assets/Logo.png"
-import Wallet from "../../assets/Wallet.png"
+// Components
+import Wallet from "../Wallet/Wallet"
 
 const Header = () => {
     return (
@@ -22,14 +23,7 @@ const Header = () => {
                     <li className={styles.header__menu__list__item}><a href="/">Mint</a></li>
                     <li className={styles.header__menu__list__item}><a href="/">Team</a></li>
                 </ul>
-                <div className={styles.header__menu__wallet}>
-                    <span className={styles.header__menu__wallet__name}>0xe76d...B9ED</span>
-                    <img
-                        className={styles.header__menu__wallet__icon}
-                        src={Wallet}
-                        alt="Icon"
-                    />
-                </div>
+                <Wallet />
             </div>
         </header>
     )

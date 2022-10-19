@@ -3,8 +3,13 @@
     background: rgba(255, 255, 255, .1);
     backdrop-filter: blur(1rem);
     padding: 1.2rem;
-    flex: 1;
+    width: 18.5rem;
+    flex-shrink: 0;
     margin-right: 1rem;
+}
+
+.coincard:last-child{
+    margin-right: 0;
 }
 
 .coincard__header {
@@ -20,6 +25,8 @@
 .coincard__header__info__title {
     margin: 0;
     line-height: 1em;
+    font-size: 1.6rem;
+    font-weight: bold;
     color: white;
 }
 
@@ -46,12 +53,14 @@
     margin: 0;
     color: #fff;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .coincard__details__rate {
     margin: 0;
     color: #F13535;
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .coincard__details__rate.low {
