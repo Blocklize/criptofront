@@ -57,7 +57,7 @@
 
 .carousel__buttons__left[disabled],
 .carousel__buttons__right[disabled] {
-    opacity: .1 !important;
+    opacity: 0 !important;
     cursor: default;
 }
 

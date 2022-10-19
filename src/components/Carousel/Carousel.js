@@ -46,8 +46,8 @@ const Carousel = () => {
     const handleLeftClick = (e) => {
         e.preventDefault()
         carousel.current.scrollLeft -= distance
+        setScrollCounter(scrollCounter - 1)
         setTimeout(() => {
-            setScrollCounter(scrollCounter - 1)
             setScrolled(carousel.current.scrollLeft)
         }, 500)
     }
@@ -56,8 +56,8 @@ const Carousel = () => {
     const handleRightClick = (e) => {
         e.preventDefault()
         carousel.current.scrollLeft += distance
+        setScrollCounter(scrollCounter + 1)
         setTimeout(() => {
-            setScrollCounter(scrollCounter + 1)
             setScrolled(carousel.current.scrollLeft)
         }, 500)
     }
