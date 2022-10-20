@@ -3,7 +3,7 @@ import styles from './InputCPF.module.css'
 import Icon from '../../../assets/icon-cpf.png'
 const InputCPF = (props) => {
     return (
-        <div className={styles.input} style={{ 'margin-top': props.distance }}>
+        <div className={styles.input} style={{ marginTop: props.distance }}>
             <label
                 className={styles.input__label}
                 htmlFor={props.name}>

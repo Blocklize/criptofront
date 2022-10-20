@@ -5,7 +5,7 @@ const NextButton = (props) => {
   return (
     <button
       className={styles.next}
-      style={{ 'margin-top': props.distance }}
+      style={{ marginTop: props.distance }}
       disabled={props.disabled}
       onClick={props.onClick}
       >

@@ -13,7 +13,7 @@ const Summary = (props) => {
     }, [fee, price, props])
 
     return (
-        <div className={styles.summary} style={{ 'margin-top': props.distance }}>
+        <div className={styles.summary} style={{ marginTop: props.distance }}>
             <div className={styles.summary__coinPrice}>
                 <span className={styles.summary__coinPrice__title}>
                     Preço do {props.coin}

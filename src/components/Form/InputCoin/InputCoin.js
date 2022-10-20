@@ -5,7 +5,7 @@ import Chevron from '../../../assets/chevron.png'
 
 const InputCoin = (props) => {
     return (
-        <div className={styles.input} style={{ 'margin-top': props.distance}}>
+        <div className={styles.input} style={{ marginTop: props.distance}}>
             <label
                 className={styles.input__label}
                 htmlFor={props.name}>
@@ -22,7 +22,6 @@ const InputCoin = (props) => {
                     name={props.name}
                     className={styles.input__field__item}
                     type="text"
-                    value="1.0000"
                     required
                 />
             </div>

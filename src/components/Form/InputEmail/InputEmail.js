@@ -3,7 +3,7 @@ import styles from './InputEmail.module.css'
 import Icon from '../../../assets/icon-at.png'
 const InputEmail = (props) => {
     return (
-        <div className={styles.input} style={{ 'margin-top': props.distance }}>
+        <div className={styles.input} style={{ marginTop: props.distance }}>
             <label
                 className={styles.input__label}
                 htmlFor={props.name}>

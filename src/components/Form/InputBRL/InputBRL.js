@@ -5,7 +5,7 @@ import styles from './InputBRL.module.css'
 
 const Input = (props) => {
     return (
-        <div className={styles.input} style={{ 'margin-top': props.distance}}>
+        <div className={styles.input} style={{ marginTop: props.distance}}>
             <label
                 className={styles.input__label}
                 htmlFor={props.name}>
@@ -18,7 +18,6 @@ const Input = (props) => {
                     name={props.name}
                     className={styles.input__field__item}
                     type="text"
-                    value="6.819,80"
                     required
                 />
             </div>
