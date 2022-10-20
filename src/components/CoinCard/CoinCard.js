@@ -24,7 +24,7 @@ const CoinCard = () => {
                     <span className={styles.coincard__details__rate__perc}>%</span>
                 </h1>
             </div>
-            <SimpleButton></SimpleButton>
+            <SimpleButton text="Simular compra" />
         </div>
     )
 }

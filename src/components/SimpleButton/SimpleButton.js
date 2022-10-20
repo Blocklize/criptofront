@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './SimpleButton.module.css'
-const SimpleButton = () => {
+const SimpleButton = (props) => {
   return (
     <button className={styles.simplebutton}>
-        Simular compra
+        {props.text}
     </button>
   )
 }

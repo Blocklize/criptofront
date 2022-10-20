@@ -1,0 +1,19 @@
+.summary {
+    font-weight: 500;
+    font-size: .9rem;
+    color: #ffffff;
+}
+
+.summary__total,
+.summary__fee,
+.summary__coinPrice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary__coinPrice__value,
+.summary__fee__value,
+.summary__total__value {
+    font-weight: bold;
+}
