@@ -17,6 +17,7 @@ const Carousel = () => {
     const distance = ratio * 19.5
 
     // States
+    const [last, setLast] = React.useState(0)
     const [labels, setLabels] = React.useState("")
     const [scrolled, setScrolled] = React.useState(0)
     const [barLeft, setBarLeft] = React.useState("0")
@@ -31,13 +32,12 @@ const Carousel = () => {
 
     // Throttle function prevent user multiple clicks
     const throttle = (cb, delay) => {
-        let last = 0
         return (...args) => {
             const now = new Date().getTime()
             if (now - last < delay) {
                 return
             }
-            last = now
+            setLast(now)
             return cb(...args)
         }
     }
