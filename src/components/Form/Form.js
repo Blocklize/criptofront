@@ -4,11 +4,16 @@ import styles from './Form.module.css'
 import NextButton from './NextButton/NextButton'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
+// Contexts
+import WalletContext from '../../contexts/WalletContext'
 
 const Form = () => {
   // Refs
   const buyBtn = React.useRef(null)
   const sellBtn = React.useRef(null)
+
+  // Context
+  const { connected } = React.useContext(WalletContext)
 
   // States
   const [buy, setBuy] = React.useState(true)
@@ -29,10 +34,18 @@ const Form = () => {
     setBuy(!buy)
   }
 
-  // Next Button click
+  // Next Button
   const handleNextClick = (e) => {
     e.preventDefault()
     setStep(step + 1)
+  }
+
+  const buttonText = {
+    0: "Conecte a sua carteira",
+    1: "Continuar para dados",
+    2: "Continuar para pagamento",
+    3: "Aguardando pagamento...",
+    4: "Pagamento realizado!",
   }
 
   return (
@@ -59,7 +72,12 @@ const Form = () => {
         {step === 2 && (
           <StepB />
         )}
-        <NextButton text="Continuar para dados" distance="2rem" disabled={false} onClick={handleNextClick} />
+        <NextButton
+          text={connected ? buttonText[step] : buttonText[0]}
+          distance="2rem"
+          onClick={handleNextClick}
+          disabled={!connected}
+        />
       </form>
 
       <div className={styles.form__progress} />

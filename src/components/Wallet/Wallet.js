@@ -3,12 +3,16 @@ import { ethers } from "ethers";
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 // CSS
 import styles from './Wallet.module.css'
+// Contexts
+import WalletContext from '../../contexts/WalletContext';
 
 
 const Wallet = () => {
+    // Context
+    const {connected, setConnected } = React.useContext(WalletContext)
     // States
     const [metamask, setMetamask] = React.useState("")
-    const [connected, setConnected] = React.useState("")
+    // const [connected, setConnected] = React.useState("")
     const [requested, setRequested] = React.useState(false)
     const [walletAdress, setWalletAdress] = React.useState("")
 
@@ -64,7 +68,7 @@ const Wallet = () => {
             )
         }
     } else {
-        const metamaskLink = "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
+        const metamaskLink = "https://metamask.io/"
         const getMetamaskExtension = () => {
             window.open(metamaskLink)
         }
