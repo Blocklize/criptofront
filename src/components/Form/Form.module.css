@@ -1,5 +1,5 @@
 .form {
-    height: 95%;
+    height: 100%;
     border-radius: 1rem;
     background: rgba(255, 255, 255, .01);
     backdrop-filter: blur(3rem);
@@ -47,10 +47,9 @@
     border: .05rem solid #5EE3E2;
     border-radius: 3rem;
     position: absolute;
-    width: 48%;
     height: 75%;
-    left: .5rem;
     z-index: 1;
+    transition: width .2s linear, left .2s ease-out;
 }
 
 .form__header__change__button {
@@ -62,6 +61,10 @@
     color: #9E85F1;
     position: relative;
     z-index: 2;
+}
+
+.form__header__change__button[disabled] {
+    color: #5EE3E2;
 }
 
 .form__progress {

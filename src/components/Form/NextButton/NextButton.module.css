@@ -6,4 +6,15 @@
     border-radius: .5rem;
     width: 100%;
     height: 4rem;
+    transition: background .4s ease-out;
+}
+
+.next:hover {
+    background: rgba(94, 227, 226, .4);
+}
+
+.next[disabled] {
+    border: .1rem solid #9E85F1;
+    background: rgba(158, 133, 241, .1);
+    color: #9E85F1;
 }
