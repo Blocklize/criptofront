@@ -1,0 +1,39 @@
+.header {
+    display: block;
+    text-align: center;
+}
+
+.header__media {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    width: 6rem;
+}
+
+
+.header__details {
+    color: #9E85F1;
+}
+
+.block {
+    width: 7rem;
+    height: 7rem;
+    border: .1rem solid #9E85F1;
+    border-radius: .2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .7rem auto;
+}
+
+.block__media {
+    width: 99%;
+}
+
+.transaction {
+    text-align: center;
+}
+
+.transaction__text {
+    color: #9E85F1;
+}

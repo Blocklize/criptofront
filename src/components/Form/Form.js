@@ -4,8 +4,10 @@ import styles from './Form.module.css'
 import NextButton from './NextButton/NextButton'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
+import StepD from './@Steps/StepD'
 // Contexts
 import WalletContext from '../../contexts/WalletContext'
+import StepC from './@Steps/StepC'
 
 const Form = () => {
   // Refs
@@ -71,6 +73,12 @@ const Form = () => {
         )}
         {step === 2 && (
           <StepB />
+        )}
+        {step === 3 && (
+          <StepC />
+        )}
+        {step === 4 && (
+          <StepD />
         )}
         <NextButton
           text={connected ? buttonText[step] : buttonText[0]}
