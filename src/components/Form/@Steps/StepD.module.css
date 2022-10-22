@@ -12,6 +12,12 @@
     color: #9E85F1;
 }
 
+@media (max-width: 1024px) {
+    .header__details {
+        font-size: .8rem;
+    }
+}
+
 .block {
     width: 7rem;
     height: 7rem;

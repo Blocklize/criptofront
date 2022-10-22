@@ -12,6 +12,14 @@
     overflow: hidden;
 }
 
+@media (max-width: 1024px) {
+    .form {
+        min-height: 550px;
+        height: 70vh;
+        width: 100% !important;
+    }
+}
+
 .form__header {
     width: 90%;
     position: absolute;
@@ -45,6 +53,13 @@
     right: 0;
 }
 
+@media (max-width: 1024px) {
+    .form__header__step {
+        top: 1rem;
+        right: unset;
+    }
+}
+
 .form__header__change {
     padding: .8rem .5rem;
     width: 12rem;
@@ -54,6 +69,12 @@
     border-radius: 3rem;
     justify-content: space-around;
     background: rgba(23, 13, 36, .4);
+}
+
+@media (max-width: 1024px) {
+    .form__header__change {
+        margin-top: 5rem;
+    }
 }
 
 .form__header__change__thumb {

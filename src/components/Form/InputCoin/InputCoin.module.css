@@ -43,6 +43,7 @@
     color: #ffffff;
     font-weight: bold;
     text-align: end;
+    width: 100%;
 }
 
 .input__field__item:focus {

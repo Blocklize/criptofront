@@ -10,6 +10,12 @@
     left: 0;
 }
 
+@media (max-width: 1024px) {
+    .header {
+        padding: 1.5rem .5rem 1.5rem 1rem;
+    }
+}
+
 .header__logo {
     width: 7rem;
 }
@@ -24,6 +30,12 @@
     list-style: none;
     padding-right: 1rem;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .header__menu__list {
+        display: none;
+    }
 }
 
 .header__menu__list__item {

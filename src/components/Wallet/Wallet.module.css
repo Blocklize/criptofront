@@ -30,6 +30,12 @@
     transition: background .4s;
 }
 
+@media (max-width: 1024px) {
+    .header__menu__button {
+        padding: .7rem 1.2rem;
+    }
+}
+
 .header__menu__button:hover {
     background: rgba(158, 133, 241, .4);
 }

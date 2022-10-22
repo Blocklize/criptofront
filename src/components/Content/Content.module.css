@@ -3,6 +3,12 @@
     margin: 0 auto;
 }
 
+@media (max-width: 1024px) {
+    .content {
+        width: 95% !important;
+    }
+}
+
 .content__left__title {
     font-size: 5rem;
     font-weight: bold;
