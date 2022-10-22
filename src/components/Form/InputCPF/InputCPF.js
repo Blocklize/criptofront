@@ -64,7 +64,7 @@ const InputCPF = (props) => {
                     name={props.name}
                     className={styles.input__field__item}
                     onInput={handleCPF}
-                    defaultValue={storage}
+                    defaultValue={maskCPF(storage)}
                     maxLength={14}
                     minLength={14}
                     type="text"
