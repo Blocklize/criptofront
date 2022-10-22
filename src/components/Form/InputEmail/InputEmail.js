@@ -19,7 +19,7 @@ const InputEmail = (props) => {
     }
 
     React.useEffect(() => {
-        setStorage(localStorage.getItem("Email"))
+        if (localStorage.getItem("Email")) setStorage(localStorage.getItem("Email"))
     }, [storage])
 
     return (

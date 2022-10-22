@@ -26,7 +26,7 @@ const InputName = (props) => {
     }
 
     React.useEffect(() => {
-        setStorage(localStorage.getItem("Name"))
+        if (localStorage.getItem("Name")) setStorage(localStorage.getItem("Name"))
     }, [storage])
 
     return (

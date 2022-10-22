@@ -26,6 +26,7 @@
 
 .block__media {
     width: 90%;
+    animation: rotation 20s infinite linear;
 }
 
 .transaction {
@@ -34,4 +35,10 @@
 
 .transaction__text {
     color: #9E85F1;
+}
+
+@keyframes rotation {
+    to {
+        transform: rotate(360deg);
+    }
 }

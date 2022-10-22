@@ -1,14 +1,16 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './Form.module.css'
 // Components
 import NextButton from './NextButton/NextButton'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
+import StepC from './@Steps/StepC'
 import StepD from './@Steps/StepD'
 // Contexts
 import WalletContext from '../../contexts/WalletContext'
 import FormsContext from '../../contexts/FormsContext'
-import StepC from './@Steps/StepC'
 
 const Form = () => {
   // Refs
@@ -55,13 +57,6 @@ const Form = () => {
     setStep(step - 1)
   }
 
-  // Form validation
-
-  const handleValidator = (step) => {
-    if (step === 1) validateStepOne()
-    else if (step === 2) validateStepTwo()
-  }
-
   // Next Button
   const handleNextClick = (e) => {
     e.preventDefault()
@@ -88,10 +83,26 @@ const Form = () => {
     const cpf = localStorage.getItem("CPF")
     if (name && email && cpf) {
       getNextStep()
-    } else {
-
     }
   }
+
+  const validateStepThree = () => {
+    setTimeout(() => {
+      console.log("Cheguei no Step 3")
+      getNextStep()
+    }, 5000);
+  }
+
+  // Form validation
+
+  const handleValidator = (step) => {
+    if (step === 1) validateStepOne()
+    if (step === 2) validateStepTwo()
+  }
+
+  React.useEffect(() => {
+    if (step === 3) validateStepThree()
+  }, [step, validateStepThree])
 
   return (
     <div className={styles.form}>

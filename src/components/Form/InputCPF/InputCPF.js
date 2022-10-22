@@ -45,7 +45,7 @@ const InputCPF = (props) => {
     }
 
     React.useEffect(() => {
-        setStorage(maskCPF(localStorage.getItem("CPF")))
+        if (localStorage.getItem("CPF")) setStorage(localStorage.getItem("CPF"))
     }, [storage])
 
     return (
