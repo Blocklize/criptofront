@@ -54,7 +54,7 @@ const Form = () => {
   // Back Button
 
   const handleBack = () => {
-    setStep(step - 1)
+    setStep(1)
   }
 
   // Next Button
@@ -116,7 +116,7 @@ const Form = () => {
             Vender
           </button>
         </div>
-        {step === 2 && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
+        {(step === 2 || step === 4) && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
         <div className={styles.form__header__step}>
           Step <span>{step}</span> of 4
         </div>
