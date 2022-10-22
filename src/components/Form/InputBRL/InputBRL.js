@@ -5,8 +5,8 @@ import FormsContext from '../../../contexts/FormsContext'
 
 const Input = (props) => {
     const { validated, setValidated } = React.useContext(FormsContext)
-
     const field = React.useRef(null)
+    
     const handleCurrency = (event) => {
         const onlyDigits = event.target.value
             .split("")

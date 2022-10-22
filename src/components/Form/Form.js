@@ -24,7 +24,6 @@ const Form = () => {
     2: "Continuar para pagamento",
     3: "Aguardando pagamento...",
     4: "Pagamento realizado!",
-    5: "Valor inferior a BRL 10,00"
   }
 
   // Context
@@ -34,7 +33,6 @@ const Form = () => {
   // States
   const [buy, setBuy] = React.useState(true)
   const [step, setStep] = React.useState(1)
-  const [btnText, setBtnText] = React.useState(buttonText[step])
 
   // Buy/Sell thumb
   const thumbBuy = {
@@ -60,14 +58,8 @@ const Form = () => {
   // Form validation
 
   const handleValidator = (step) => {
-    if (step === 1) {
-      if (localStorage.getItem("buyValue") >= 10) {
-        setValidated(false)
-        getNextStep()
-      } else {
-        setValidated(true)
-      }
-    }
+    if (step === 1) validateStepOne()
+    else if (step === 2) validateStepTwo()
   }
 
   // Next Button
@@ -76,11 +68,30 @@ const Form = () => {
     handleValidator(step)
   }
 
+  // Steps
   const getNextStep = () => {
     setStep(step + 1)
-    setBtnText(buttonText[step])
   }
 
+  const validateStepOne = () => {
+    if (localStorage.getItem("buyValue") >= 10) {
+      setValidated(false)
+      getNextStep()
+    } else {
+      setValidated(true)
+    }
+  }
+
+  const validateStepTwo = () => {
+    const name = localStorage.getItem("Name")
+    const email = localStorage.getItem("Email")
+    const cpf = localStorage.getItem("CPF")
+    if (name && email && cpf) {
+      getNextStep()
+    } else {
+
+    }
+  }
 
   return (
     <div className={styles.form}>
@@ -94,34 +105,22 @@ const Form = () => {
             Vender
           </button>
         </div>
-        {step === 2 && (
-          <div className={styles.form__header__back} onClick={handleBack}>
-            ←
-          </div>
-        )}
+        {step === 2 && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
         <div className={styles.form__header__step}>
           Step <span>{step}</span> of 4
         </div>
       </div>
 
       <form ref={Form} className={styles.form__field}>
-        {step === 1 && (
-          <StepA />
-        )}
-        {step === 2 && (
-          <StepB />
-        )}
-        {step === 3 && (
-          <StepC />
-        )}
-        {step === 4 && (
-          <StepD />
-        )}
+        {step === 1 && (<StepA />)}
+        {step === 2 && (<StepB />)}
+        {step === 3 && (<StepC />)}
+        {step === 4 && (<StepD />)}
         <NextButton
-          text={connected ? btnText : buttonText[0]}
+          text={connected ? buttonText[step] : buttonText[0]}
           distance="2rem"
           onClick={handleNextClick}
-          disabled={!connected}
+          disabled={!connected || step > 2}
         />
       </form>
       <div className={styles.form__progress} style={{ width: `${25 * step}%` }} />
