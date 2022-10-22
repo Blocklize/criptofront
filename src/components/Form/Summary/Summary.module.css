@@ -17,4 +17,9 @@
 .summary__fee__value,
 .summary__total__value {
     font-weight: bold;
+    text-align: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: .8
 }

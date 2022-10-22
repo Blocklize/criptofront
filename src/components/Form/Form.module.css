@@ -23,6 +23,20 @@
     justify-content: center;
 }
 
+.form__header__back {
+    color: #9E85F1;
+    position: absolute;
+    font-size: 1.9rem;
+    top: 0rem;
+    left: 1rem;
+    cursor: pointer;
+    transition: opacity .4s;
+}
+
+.form__header__back:hover {
+    opacity: .5;
+}
+
 .form__header__step {
     color: #9E85F1;
     position: absolute;
@@ -71,7 +85,6 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 25%;
     height: .4rem;
     background: #5EE3E2;
     transition: width .4s ease-in;

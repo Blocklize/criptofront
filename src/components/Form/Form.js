@@ -7,19 +7,34 @@ import StepB from './@Steps/StepB'
 import StepD from './@Steps/StepD'
 // Contexts
 import WalletContext from '../../contexts/WalletContext'
+import FormsContext from '../../contexts/FormsContext'
 import StepC from './@Steps/StepC'
 
 const Form = () => {
   // Refs
+  const Form = React.useRef(null)
   const buyBtn = React.useRef(null)
   const sellBtn = React.useRef(null)
 
+  // Button text
+
+  const buttonText = {
+    0: "Conecte a sua carteira",
+    1: "Continuar para dados",
+    2: "Continuar para pagamento",
+    3: "Aguardando pagamento...",
+    4: "Pagamento realizado!",
+    5: "Valor inferior a BRL 10,00"
+  }
+
   // Context
   const { connected } = React.useContext(WalletContext)
+  const { setValidated } = React.useContext(FormsContext)
 
   // States
   const [buy, setBuy] = React.useState(true)
   const [step, setStep] = React.useState(1)
+  const [btnText, setBtnText] = React.useState(buttonText[step])
 
   // Buy/Sell thumb
   const thumbBuy = {
@@ -36,19 +51,36 @@ const Form = () => {
     setBuy(!buy)
   }
 
+  // Back Button
+
+  const handleBack = () => {
+    setStep(step - 1)
+  }
+
+  // Form validation
+
+  const handleValidator = (step) => {
+    if (step === 1) {
+      if (localStorage.getItem("buyValue") >= 10) {
+        setValidated(false)
+        getNextStep()
+      } else {
+        setValidated(true)
+      }
+    }
+  }
+
   // Next Button
   const handleNextClick = (e) => {
     e.preventDefault()
-    setStep(step + 1)
+    handleValidator(step)
   }
 
-  const buttonText = {
-    0: "Conecte a sua carteira",
-    1: "Continuar para dados",
-    2: "Continuar para pagamento",
-    3: "Aguardando pagamento...",
-    4: "Pagamento realizado!",
+  const getNextStep = () => {
+    setStep(step + 1)
+    setBtnText(buttonText[step])
   }
+
 
   return (
     <div className={styles.form}>
@@ -62,12 +94,17 @@ const Form = () => {
             Vender
           </button>
         </div>
+        {step === 2 && (
+          <div className={styles.form__header__back} onClick={handleBack}>
+            ←
+          </div>
+        )}
         <div className={styles.form__header__step}>
-          Step <span>1</span> of 4
+          Step <span>{step}</span> of 4
         </div>
       </div>
 
-      <form className={styles.form__field}>
+      <form ref={Form} className={styles.form__field}>
         {step === 1 && (
           <StepA />
         )}
@@ -81,14 +118,13 @@ const Form = () => {
           <StepD />
         )}
         <NextButton
-          text={connected ? buttonText[step] : buttonText[0]}
+          text={connected ? btnText : buttonText[0]}
           distance="2rem"
           onClick={handleNextClick}
           disabled={!connected}
         />
       </form>
-
-      <div className={styles.form__progress} />
+      <div className={styles.form__progress} style={{ width: `${25 * step}%` }} />
     </div>
   )
 }

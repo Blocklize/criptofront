@@ -9,8 +9,18 @@ const Summary = (props) => {
     React.useEffect(() => {
         setPrice(props.price)
         setFee(price * .01)
-        setTotal(price + fee)
+        setTotal(+price + fee)
     }, [fee, price, props])
+
+    const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
+        return new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currencyDisplay: "code",
+            currency
+        }).format(valor)
+            .replace("BRL", "")
+            .trim()
+    }
 
     return (
         <div className={styles.summary} style={{ marginTop: props.distance }}>
@@ -19,7 +29,7 @@ const Summary = (props) => {
                     Preço do {props.coin}
                 </span>
                 <span className={styles.summary__coinPrice__value}>
-                    BRL {price.toFixed(2)}
+                    BRL {maskCurrency(price)}
                 </span>
             </div>
             <div className={styles.summary__fee}>
@@ -27,7 +37,7 @@ const Summary = (props) => {
                     Taxa de processamento
                 </span>
                 <span className={styles.summary__fee__value}>
-                    BRL {fee.toFixed(2)}
+                    BRL {maskCurrency(fee)}
                 </span>
             </div>
             <div className={styles.summary__total}>
@@ -35,7 +45,7 @@ const Summary = (props) => {
                     Valor total
                 </span>
                 <span className={styles.summary__total__value}>
-                    BRL {total.toFixed(2)}
+                    BRL {maskCurrency(total)}
                 </span>
             </div>
         </div>

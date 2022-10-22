@@ -5,7 +5,7 @@ import Chevron from '../../../assets/chevron.png'
 
 const InputCoin = (props) => {
     return (
-        <div className={styles.input} style={{ marginTop: props.distance}}>
+        <div className={styles.input} style={{ marginTop: props.distance }}>
             <label
                 className={styles.input__label}
                 htmlFor={props.name}>
@@ -21,7 +21,10 @@ const InputCoin = (props) => {
                     id={props.name}
                     name={props.name}
                     className={styles.input__field__item}
+                    value={props.value}
+                    autoComplete="off"
                     type="text"
+                    readOnly
                     required
                 />
             </div>

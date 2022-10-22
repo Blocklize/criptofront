@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     border: .1rem solid #9E85F1;
+    transition: border .4s linear, background .4s linear;
 }
 
 .input__field__coin {
@@ -30,5 +31,10 @@
 
 .input__field__item:focus {
     outline: none;
+}
+
+.invalid {
+    border: .1rem solid #ff0000;
+    background: rgba(158, 5, 5, .05);
 }
 
