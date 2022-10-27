@@ -1,9 +1,19 @@
 import React from 'react'
 import styles from './InputCoin.module.css'
-import Icon from '../../../assets/eth.png'
+// import Icon from '../../../assets/matic.webp'
 import Chevron from '../../../assets/chevron.png'
+import TokenSelector from './TokenSelector/TokenSelector'
+import TokenContext from '../../../contexts/TokenContext'
+import SelectorContext from '../../../contexts/SelectorContext'
 
 const InputCoin = (props) => {
+    const { token } = React.useContext(TokenContext)
+    const { isOpen, setIsOpen } = React.useContext(SelectorContext)
+
+    const handleClick = () => {
+        setIsOpen(!isOpen)
+    }
+
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
             <label
@@ -12,10 +22,13 @@ const InputCoin = (props) => {
                 {props.label}
             </label>
             <div className={styles.input__field}>
-                <div className={styles.input__field__coin}>
-                    <img className={styles.input__field__coin__icon} src={Icon} alt="Coin icon" />
-                    <span className={styles.input__field__coin__tag}>ETH</span>
+                <div className={styles.input__field__coin} onClick={handleClick}>
+                    <img className={styles.input__field__coin__icon} src={require(`../../../assets/icons/${token.TokenSymbol}.png`)} alt="Coin icon" />
+                    <span className={styles.input__field__coin__tag}>{token.TokenSymbol}</span>
                     <img className={styles.input__field__coin__arrow} src={Chevron} alt="Arrow icon" />
+                </div>
+                <div className={styles.input__field__selector}>
+                    <TokenSelector state={isOpen} />
                 </div>
                 <input
                     id={props.name}

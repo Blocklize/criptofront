@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     border: .1rem solid #9E85F1;
+    position: relative;
 }
 
 .input__field__coin {
@@ -23,6 +24,13 @@
     justify-content: center;
     position: relative;
     cursor: pointer;
+}
+
+.input__field__coin__tag {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
 }
 
 .input__field__coin__icon {
@@ -50,3 +58,12 @@
     outline: none;
 }
 
+.input__field__selector {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+}
+
+.input__field__selector[disabled] {
+    display: none;
+}

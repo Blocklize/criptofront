@@ -9,7 +9,7 @@ import WalletContext from '../../contexts/WalletContext';
 
 const Wallet = () => {
     // Context
-    const {connected, setConnected } = React.useContext(WalletContext)
+    const { connected, setConnected } = React.useContext(WalletContext)
     // States
     const [metamask, setMetamask] = React.useState("")
     // const [connected, setConnected] = React.useState("")
@@ -43,6 +43,7 @@ const Wallet = () => {
             await provider.send("eth_requestAccounts", [])
             const address = await signer.getAddress()
             setWalletAdress(minimizeAddress(address))
+            localStorage.setItem("Address", address)
             setConnected(true)
         }
 

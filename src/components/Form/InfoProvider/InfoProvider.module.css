@@ -8,6 +8,7 @@
     width: 100%;
     flex-shrink: 0;
     margin-top: .5rem;
+    position: relative;
 }
 
 .info__text {
@@ -43,4 +44,43 @@
 
 .info__button__icon {
     width: 60%;
+}
+
+.info__feedback {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: -3rem;
+    background: #9E85F1;
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    animation: fadeIn .4s forwards;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.info__feedback::after {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    bottom: -.25rem;
+    background: #9E85F1;
+    right: 1rem;
+    transform: rotate(45deg);
+}
+
+.info__feedback[disabled] {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+    } to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
