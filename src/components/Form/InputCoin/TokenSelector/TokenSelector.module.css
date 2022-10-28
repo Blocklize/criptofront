@@ -71,3 +71,10 @@
     touch-action: none;
     pointer-events: none;
 }
+
+.loading {
+    display: block;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+}

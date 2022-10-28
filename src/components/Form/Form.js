@@ -5,6 +5,7 @@ import React from 'react'
 import styles from './Form.module.css'
 // Components
 import NextButton from './NextButton/NextButton'
+import Waiting from './Waiting/Waiting'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
 import StepC from './@Steps/StepC'
@@ -41,6 +42,7 @@ const Form = () => {
   const [corrId, setCorrId] = React.useState("")
   const [transactionId, setTransactionId] = React.useState("")
   const [transactionTime, setTransactionTime] = React.useState("")
+  const [transactionPrice, setTransactionPrice] = React.useState("")
 
   // Buy/Sell thumb
   const thumbBuy = {
@@ -123,7 +125,9 @@ const Form = () => {
     if (name && email && cpf) {
       getWait()
       await sendData()
-      setStep(3)
+      setTimeout(() => {
+        setStep(3)
+      }, 1000);
     }
   }
 
@@ -148,6 +152,7 @@ const Form = () => {
         setTimeout(() => {
           if (json.result !== "transaction not passed yet") {
             console.log(json)
+            setTransactionPrice(json.result.amount_BRL)
             setTransactionTime(json.result.time)
             setTransactionId(json.result.corrId)
             setStep(4)
@@ -203,7 +208,8 @@ const Form = () => {
         {step === 1 && (<StepA />)}
         {step === 2 && (<StepB />)}
         {step === 3 && (<StepC br={brCode} qr={qrCode} />)}
-        {step === 4 && (<StepD transactionId={transactionId} transactionTime={transactionTime} />)}
+        {step === 4 && (<StepD transactionId={transactionId} transactionTime={transactionTime} transactionPrice={transactionPrice} />)}
+        {step === "..." && (<Waiting />)}
         <NextButton
           text={connected ? buttonText[step] : buttonText[0]}
           distance="2rem"

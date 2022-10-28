@@ -24,6 +24,7 @@ const TokenSelector = () => {
         await fetch('https://parseapi.back4app.com/functions/seeTokenPools', config)
             .then(resp => resp.json())
             .then(json => {
+                console.log(json)
                 setTokens(json.result)
             })
             .catch(error => {
@@ -51,7 +52,8 @@ const TokenSelector = () => {
     return (
         <div className={styles.container} disabled={isOpen}>
             <ul className={styles.tokenSelector}>
-                {tokens.map(token => (
+                {tokens.length === 0 && (<span className={styles.loading}>Carregando...</span>)}
+                {tokens.length > 0 && (tokens.map(token => (
                     <li className={styles.tokenSelector__item}
                         data-symbol={token.TokenSymbol}
                         data-address={token.TokenAddress}
@@ -62,7 +64,7 @@ const TokenSelector = () => {
                             alt="Coin icon" />
                         <span className={styles.tokenSelector__item__name}>{token.TokenSymbol}</span>
                     </li>
-                ))}
+                )))}
             </ul>
         </div>
     )

@@ -4,12 +4,12 @@ import styles from './Summary.module.css'
 const Summary = (props) => {
     const [price, setPrice] = React.useState(props.price)
     const [fee, setFee] = React.useState(price * .01)
-    const [total, setTotal] = React.useState(price + fee)
+    const [gas, setGas] = React.useState(price + fee)
 
     React.useEffect(() => {
         setPrice(props.price)
         setFee(price * .025)
-        setTotal(+price + fee)
+        setGas(props.gas)
     }, [fee, price, props])
 
     const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
@@ -42,10 +42,10 @@ const Summary = (props) => {
             </div>
             <div className={styles.summary__total}>
                 <span className={styles.summary__total__title}>
-                    Taxa de gas
+                    Taxa de gás
                 </span>
                 <span className={styles.summary__total__value}>
-                    BRL {maskCurrency(total)}
+                    BRL {gas}
                 </span>
             </div>
         </div>

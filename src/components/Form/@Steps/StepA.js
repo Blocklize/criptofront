@@ -25,8 +25,8 @@ const StepA = () => {
         animation: "entrance .5s ease-out"
     }
     // States
-    const [last, setLast] = React.useState(0)
     const [price, setPrice] = React.useState(0)
+    const [gasFee, setGasFee] = React.useState(0)
     const [payoff, setPayoff] = React.useState(() => {
         const getItem = localStorage.getItem("buyValue")
         return getItem ? getItem : 0
@@ -35,7 +35,7 @@ const StepA = () => {
     // Functions
     const handleConversion = async (e) => {
         const number = +(e.target.value.replaceAll(".", "").replace(",", "."))
-        throttle(getFee(number), 500)
+        getFee(number)
         setPayoff(number)
     }
 
@@ -56,28 +56,18 @@ const StepA = () => {
         await fetch('https://parseapi.back4app.com/functions/calcularTaxaTokens', config)
             .then((response) => response.json())
             .then((json) => {
-                setPrice((json.result / Math.pow(10, 18)).toFixed(5))
+                setGasFee(json.result.gasPrice)
+                setPrice((json.result.tokensAmount[0] / Math.pow(10, 18)).toFixed(5))
             })
             .catch((error) => {
                 console.log(error)
             })
     }
 
-    const throttle = (cb, delay) => {
-        return (...args) => {
-            const now = new Date().getTime()
-            if (now - last < delay) {
-                return
-            }
-            setLast(now)
-            return cb(...args)
-        }
-    }
-
     React.useEffect(() => {
         const number = localStorage.getItem("buyValue")
-        throttle(getFee(number), 500)
-    }, [payoff, throttle])
+        getFee(number)
+    }, [token])
 
     return (
         <TokenContext.Provider value={{ token, setToken }}>
@@ -86,7 +76,7 @@ const StepA = () => {
                 <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
                     <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
                 </SelectorContext.Provider>
-                <Summary coin={token.TokenSymbol} price={payoff} distance="1rem" />
+                <Summary coin={token.TokenSymbol} gas={gasFee} price={payoff} distance="1rem" />
             </div>
         </TokenContext.Provider>
     )

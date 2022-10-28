@@ -25,11 +25,25 @@ const StepD = (props) => {
         return `${hours} - ${date} - BRL`
     }
 
+    const formatPrice = () => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currencyDisplay: "code",
+            currency: 'BRL'
+        }).format(props.transactionPrice)
+            .replace("BRL", "")
+            .trim()
+    }
+
+    const getTransactionInfo = () => {
+        return `${formatTime()} ${formatPrice()}`
+    }
+
     return (
         <div className={styles.step} style={entranceConfig}>
             <div className={styles.header}>
                 <h3 className={styles.header__title}>Transação finalizada!</h3>
-                <span className={styles.header__details}>{formatTime()}</span>
+                <span className={styles.header__details}>{getTransactionInfo()}</span>
             </div>
             <div className={styles.block}>
                 <img className={styles.block__media} src={Block} alt="Block illustration" />
