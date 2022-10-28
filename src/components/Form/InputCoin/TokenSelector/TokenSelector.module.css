@@ -35,7 +35,8 @@
 }
 
 .tokenSelector::-webkit-scrollbar-thumb {
-    background: #8d73e4;
+    background: #a994e5;
+    opacity: .4;
     border-radius: .3rem;
 }
 
@@ -52,7 +53,7 @@
 }
 
 .tokenSelector__item:hover {
-    background: rgba(71, 18, 10, .4);
+    background: rgba(153, 0, 255, 0.4);
     cursor: pointer;
 }
 

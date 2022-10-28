@@ -18,7 +18,7 @@ const StepA = () => {
         TokenAddress: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b"
     })
 
-    const [isOpen, setIsOpen] = React.useState(false)
+    const [isOpen, setIsOpen] = React.useState(true)
 
     // Animation
     const entranceConfig = {

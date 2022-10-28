@@ -8,7 +8,7 @@ const Summary = (props) => {
 
     React.useEffect(() => {
         setPrice(props.price)
-        setFee(price * .01)
+        setFee(price * .025)
         setTotal(+price + fee)
     }, [fee, price, props])
 
@@ -42,7 +42,7 @@ const Summary = (props) => {
             </div>
             <div className={styles.summary__total}>
                 <span className={styles.summary__total__title}>
-                    Valor total
+                    Taxa de gas
                 </span>
                 <span className={styles.summary__total__value}>
                     BRL {maskCurrency(total)}
