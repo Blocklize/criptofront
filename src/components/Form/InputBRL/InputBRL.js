@@ -6,8 +6,16 @@ import FormsContext from '../../../contexts/FormsContext'
 const Input = (props) => {
     const { validated, setValidated } = React.useContext(FormsContext)
     const field = React.useRef(null)
-    
+
+    const limitValue = (value) => {
+        const integer = value.replace(",", "").slice(0, -2)
+        const decimal = value.replace(",", "").slice(-2)
+        return `${integer}.${decimal}`
+    }
     const handleCurrency = (event) => {
+        if (limitValue(event.target.value) >= 500) {
+            event.target.value = "50,000"
+        }
         const onlyDigits = event.target.value
             .split("")
             .filter(s => /\d/.test(s))
@@ -15,7 +23,7 @@ const Input = (props) => {
             .padStart(3, "0")
         const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
         event.target.value = maskCurrency(digitsFloat)
-        if (digitsFloat < 10) setValidated(true)
+        if (digitsFloat < 20) setValidated(true)
         else setValidated(false)
         localStorage.setItem("buyValue", +(event.target.value.replaceAll(".", "").replace(",", ".")))
     }
@@ -52,7 +60,6 @@ const Input = (props) => {
                     onChange={props.onChange}
                     defaultValue={props.value}
                     autoComplete="off"
-                    maxLength={15}
                     type="text"
                     required
                 />

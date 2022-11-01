@@ -61,6 +61,7 @@ const TokenSelector = () => {
                         onClick={handleClick}>
                         <img className={styles.tokenSelector__item__icon}
                             src={require(`../../../../assets/icons/${token.TokenSymbol}.png`)}
+                            // src="teste.png"
                             alt="Coin icon" />
                         <span className={styles.tokenSelector__item__name}>{token.TokenSymbol}</span>
                     </li>

@@ -13,10 +13,7 @@ import SelectorContext from '../../../contexts/SelectorContext'
 
 const StepA = () => {
     // Context
-    const [token, setToken] = React.useState({
-        TokenSymbol: "AVAX",
-        TokenAddress: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b"
-    })
+    const { token } = React.useContext(TokenContext)
 
     const [isOpen, setIsOpen] = React.useState(true)
 
@@ -70,15 +67,13 @@ const StepA = () => {
     }, [token])
 
     return (
-        <TokenContext.Provider value={{ token, setToken }}>
-            <div style={entranceConfig}>
-                <InputBRL name="buyValue" label="Escolha o valor" onChange={handleConversion} value={payoff} />
-                <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
-                    <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
-                </SelectorContext.Provider>
-                <Summary coin={token.TokenSymbol} gas={gasFee} price={payoff} distance="1rem" />
-            </div>
-        </TokenContext.Provider>
+        <div style={entranceConfig}>
+            <InputBRL name="buyValue" label="Escolha o valor" onChange={handleConversion} value={payoff} />
+            <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
+                <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
+            </SelectorContext.Provider>
+            <Summary coin={token.TokenSymbol} gas={gasFee} price={payoff} distance="1rem" />
+        </div>
     )
 }
 

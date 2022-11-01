@@ -5,11 +5,17 @@ import Carousel from '../Carousel/Carousel'
 import Form from '../Form/Form'
 // Contexts
 import FormsContext from '../../contexts/FormsContext'
+import TokenContext from '../../contexts/TokenContext'
 // CSS
 import styles from './Content.module.css'
 
 
 const Content = () => {
+  // Context
+  const [token, setToken] = React.useState({
+    TokenSymbol: "AVAX",
+    TokenAddress: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b"
+  })
   const [validated, setValidated] = React.useState(false)
   return (
     <section className={`${styles.content} row d-flex justify-content-center`}>
@@ -22,9 +28,11 @@ const Content = () => {
         <Carousel />
       </div>
       <div className={`${styles.content__right} col-lg-6`}>
-        <FormsContext.Provider value={{ validated, setValidated }}>
-          <Form />
-        </FormsContext.Provider>
+        <TokenContext.Provider value={{ token, setToken }}>
+          <FormsContext.Provider value={{ validated, setValidated }}>
+            <Form />
+          </FormsContext.Provider>
+        </TokenContext.Provider>
       </div>
     </section>
   )

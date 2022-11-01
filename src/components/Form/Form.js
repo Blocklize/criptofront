@@ -13,6 +13,7 @@ import StepD from './@Steps/StepD'
 // Contexts
 import WalletContext from '../../contexts/WalletContext'
 import FormsContext from '../../contexts/FormsContext'
+import TokenContext from '../../contexts/TokenContext'
 
 const Form = () => {
   // Refs
@@ -31,6 +32,7 @@ const Form = () => {
   }
 
   // Context
+  const { token } = React.useContext(TokenContext)
   const { connected } = React.useContext(WalletContext)
   const { setValidated } = React.useContext(FormsContext)
 
@@ -83,7 +85,8 @@ const Form = () => {
       "metamask": localStorage.getItem("Address"),
       "name": localStorage.getItem("Name"),
       "email": localStorage.getItem("Email"),
-      "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      // "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+      "tokenAddress": token,
       "cpf": localStorage.getItem("CPF"),
     })
 
@@ -100,6 +103,7 @@ const Form = () => {
     await fetch('https://parseapi.back4app.com/functions/swapPix', config)
       .then(response => response.json())
       .then(json => {
+        console.log(json.result)
         setBrCode(json.result.brCode)
         setQrCode(json.result.charge.qrCodeImage)
         setCorrId(json.result.charge.correlationID)
@@ -159,7 +163,7 @@ const Form = () => {
           } else {
             validateStepThree()
           }
-        }, 1000);
+        }, 10000);
       })
       .catch((error) => {
         console.log(error);
