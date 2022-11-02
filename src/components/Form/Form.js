@@ -14,6 +14,7 @@ import StepD from './@Steps/StepD'
 import WalletContext from '../../contexts/WalletContext'
 import FormsContext from '../../contexts/FormsContext'
 import TokenContext from '../../contexts/TokenContext'
+import Error from './Error/Error'
 
 const Form = () => {
   // Refs
@@ -28,7 +29,8 @@ const Form = () => {
     2: "Continuar para pagamento",
     3: "Aguardando pagamento...",
     4: "Pagamento realizado!",
-    "...": "Gerando código..."
+    "Wait": "Gerando código...",
+    "Error": "Tente novamente",
   }
 
   // Context
@@ -38,7 +40,7 @@ const Form = () => {
 
   // States
   const [buy, setBuy] = React.useState(true)
-  const [step, setStep] = React.useState(1)
+  const [step, setStep] = React.useState("Error")
   const [brCode, setBrCode] = React.useState("")
   const [qrCode, setQrCode] = React.useState("")
   const [corrId, setCorrId] = React.useState("")
@@ -183,6 +185,7 @@ const Form = () => {
   const handleValidator = (step) => {
     if (step === 1) validateStepOne()
     if (step === 2) validateStepTwo()
+    if (step === "Error") setStep(1)
   }
 
   React.useEffect(() => {
@@ -202,10 +205,12 @@ const Form = () => {
             Vender
           </button>
         </div>
-        {(step === 2 || step === 4) && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
-        <div className={styles.form__header__step}>
-          Step <span>{step}</span> of 4
-        </div>
+        {(step === 2 || step === 4 || step === "Error") && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
+        {(step !== "Wait" && step !== "Error" && (
+          <div className={styles.form__header__step}>
+            Step <span>{step}</span> of 4
+          </div>
+        ))}
       </div>
 
       <form ref={Form} className={styles.form__field}>
@@ -213,12 +218,13 @@ const Form = () => {
         {step === 2 && (<StepB />)}
         {step === 3 && (<StepC br={brCode} qr={qrCode} />)}
         {step === 4 && (<StepD transactionId={transactionId} transactionTime={transactionTime} transactionPrice={transactionPrice} />)}
-        {step === "..." && (<Waiting />)}
+        {step === "Wait" && (<Waiting />)}
+        {step === "Error" && (<Error />)}
         <NextButton
           text={connected ? buttonText[step] : buttonText[0]}
           distance="2rem"
           onClick={handleNextClick}
-          disabled={!connected || step > 2 || step === "..."}
+          disabled={!connected || step > 2 || step === "Wait"}
         />
       </form>
       <div className={styles.form__progress} style={{ width: `${25 * step}%` }} />
