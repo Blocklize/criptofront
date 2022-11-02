@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './Summary.module.css'
 
@@ -5,12 +6,6 @@ const Summary = (props) => {
     const [price, setPrice] = React.useState(props.price)
     const [fee, setFee] = React.useState(price * .01)
     const [gas, setGas] = React.useState(price + fee)
-
-    React.useEffect(() => {
-        setPrice(props.price)
-        setFee(price * .025)
-        setGas(props.gas)
-    }, [fee, price, props])
 
     const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
         return new Intl.NumberFormat(locale, {
@@ -21,6 +16,21 @@ const Summary = (props) => {
             .replace("BRL", "")
             .trim()
     }
+
+    const formatGas = () => {
+        if (props.gas) {
+            const gas = props.gas.toFixed(5)
+            return maskCurrency(gas)
+        } else {
+            return maskCurrency(0)
+        }
+    }
+
+    React.useEffect(() => {
+        setPrice(props.price)
+        setFee(price * .025)
+        setGas(formatGas())
+    }, [fee, formatGas, price, props])
 
     return (
         <div className={styles.summary} style={{ marginTop: props.distance }}>
