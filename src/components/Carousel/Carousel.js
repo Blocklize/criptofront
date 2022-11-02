@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // React
 import React from 'react'
 // Components
@@ -6,6 +7,7 @@ import CoinCard from '../CoinCard/CoinCard'
 import styles from './Carousel.module.css'
 // Imports
 import Chevron from '../../assets/chevron.png'
+import Skeleton from './Skeleton/Skeleton'
 
 const Carousel = () => {
     // Refs
@@ -18,6 +20,7 @@ const Carousel = () => {
 
     // States
     const [last, setLast] = React.useState(0)
+    const [tokens, setTokens] = React.useState([])
     const [labels, setLabels] = React.useState("")
     const [scrolled, setScrolled] = React.useState(0)
     const [barLeft, setBarLeft] = React.useState("0")
@@ -28,7 +31,7 @@ const Carousel = () => {
         const scrollOffset = carousel.current.scrollWidth - (2 * distance)
         setTotalScroll(scrollOffset)
         setLabels(Math.round(carousel.current.scrollWidth / distance))
-    }, [distance, labels])
+    }, [distance, labels, tokens])
 
     // Throttle function prevent user multiple clicks
     const throttle = (cb, delay) => {
@@ -65,12 +68,38 @@ const Carousel = () => {
     // Labels setting
     React.useEffect(() => {
         setBarLeft(`${.9 * scrollCounter}rem`)
-    }, [scrollCounter])
+    }, [scrollCounter, tokens])
 
     let points = []
     for (let i = 0; i < labels; i++) {
         points.push(<div className={styles.carousel__labels__point} key={i}></div>)
     }
+
+    // Cards
+
+    const config = {
+        method: 'post',
+        headers: {
+            'X-Parse-Application-Id': 'mpxuNMEJnSlytSS75jhHdt4O3bCpxgRr6glWHnKw',
+            'X-Parse-REST-API-Key': 'Spj9NomBOJYsPp2Dh4QFfKjcKIDXOYUhqCONK7AH',
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const handleTokens = async () => {
+        await fetch('https://parseapi.back4app.com/functions/seeTokenPools', config)
+            .then(resp => resp.json())
+            .then(json => {
+                setTokens(json.result)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    React.useEffect(() => {
+        handleTokens()
+    })
 
     // JSX
     return (
@@ -81,15 +110,19 @@ const Carousel = () => {
                     <span>30</span>s
                 </span>
             </div>
-            <div className={styles.carousel__body} ref={carousel}>
-                <CoinCard />
-                <CoinCard />
-                <CoinCard />
-                <CoinCard />
-                <CoinCard />
-                <CoinCard />
-                <CoinCard />
-            </div>
+            {tokens.length === 0 && (
+                <div className={styles.carousel__body} ref={carousel}>
+                    <Skeleton />
+                    <Skeleton />
+                </div>
+            )}
+            {tokens.length > 0 && (
+                <div className={styles.carousel__body} ref={carousel}>
+                    {tokens.map(t => (
+                        <CoinCard key={t.TokenSymbol} symbol={t.TokenSymbol} name={t.TokenName} price={t.price} />
+                    ))}
+                </div>
+            )}
             <div className={styles.carousel__buttons}>
                 <button
                     className={styles.carousel__buttons__left}

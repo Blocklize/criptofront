@@ -16,3 +16,16 @@
 .simplebutton:hover {
     background: rgba(158, 133, 241, .4);
 }
+
+.simplebutton[disabled] {
+    background: rgba(16, 6, 24, .5);
+    animation: skeleton 1s infinite ease-in-out alternate-reverse;
+}
+
+@keyframes skeleton {
+    from {
+        opacity: .1;
+    } to {
+        opacity: 1;
+    }
+}

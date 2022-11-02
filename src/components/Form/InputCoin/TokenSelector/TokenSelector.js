@@ -24,7 +24,6 @@ const TokenSelector = () => {
         await fetch('https://parseapi.back4app.com/functions/seeTokenPools', config)
             .then(resp => resp.json())
             .then(json => {
-                console.log(json)
                 setTokens(json.result)
             })
             .catch(error => {
@@ -61,7 +60,6 @@ const TokenSelector = () => {
                         onClick={handleClick}>
                         <img className={styles.tokenSelector__item__icon}
                             src={require(`../../../../assets/icons/${token.TokenSymbol}.png`)}
-                            // src="teste.png"
                             alt="Coin icon" />
                         <span className={styles.tokenSelector__item__name}>{token.TokenSymbol}</span>
                     </li>
