@@ -40,7 +40,7 @@ const Form = () => {
 
   // States
   const [buy, setBuy] = React.useState(true)
-  const [step, setStep] = React.useState("Error")
+  const [step, setStep] = React.useState(1)
   const [brCode, setBrCode] = React.useState("")
   const [qrCode, setQrCode] = React.useState("")
   const [corrId, setCorrId] = React.useState("")

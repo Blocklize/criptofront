@@ -2,11 +2,14 @@
 import React from 'react'
 // CSS
 import styles from './CoinCard.module.css'
-// Assets
-// import ETH from '../../assets/eth.png'
+// Components
 import SimpleButton from '../SimpleButton/SimpleButton'
+// Context
+import TokenContext from '../../contexts/TokenContext'
 
 const CoinCard = (props) => {
+    const { setToken } = React.useContext(TokenContext)
+
     const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
         return new Intl.NumberFormat(locale, {
             style: 'currency',
@@ -17,8 +20,13 @@ const CoinCard = (props) => {
             .trim()
     }
 
-    const handleSimulation = () => {
-        console.log("Click")
+    const handleSimulation = (e) => {
+        e.preventDefault()
+        const tokenData = {
+            TokenSymbol: props.symbol,
+            TokenAddress: props.address,
+        }
+        setToken(tokenData)
     }
 
     return (
@@ -37,7 +45,10 @@ const CoinCard = (props) => {
                     POR TOKEN
                 </h1>
             </div>
-            <SimpleButton text="Simular compra" onClick={handleSimulation} />
+            <SimpleButton
+                text="Simular compra"
+                onClick={handleSimulation}
+            />
         </div>
     )
 }

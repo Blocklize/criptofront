@@ -119,7 +119,13 @@ const Carousel = () => {
             {tokens.length > 0 && (
                 <div className={styles.carousel__body} ref={carousel}>
                     {tokens.map(t => (
-                        <CoinCard key={t.TokenSymbol} symbol={t.TokenSymbol} name={t.TokenName} price={t.price} />
+                        <CoinCard
+                            key={t.TokenSymbol}
+                            symbol={t.TokenSymbol}
+                            name={t.TokenName}
+                            address={t.TokenAddress}
+                            price={t.price}
+                        />
                     ))}
                 </div>
             )}
