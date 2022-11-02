@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 // React
 import React from 'react'
 // CSS
@@ -19,9 +20,15 @@ const Header = () => {
             </a>
             <div className={styles.header__menu}>
                 <ul className={styles.header__menu__list}>
-                    <li className={styles.header__menu__list__item}><a href="/">About</a></li>
-                    <li className={styles.header__menu__list__item}><a href="/">Mint</a></li>
-                    <li className={styles.header__menu__list__item}><a href="/">Team</a></li>
+                    <li className={styles.header__menu__list__item}>
+                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">About</a>
+                    </li>
+                    <li className={styles.header__menu__list__item}>
+                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Mint</a>
+                    </li>
+                    <li className={styles.header__menu__list__item}>
+                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Team</a>
+                    </li>
                 </ul>
                 <Wallet />
             </div>
