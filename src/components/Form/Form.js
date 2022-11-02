@@ -78,7 +78,7 @@ const Form = () => {
 
   // Steps
   const getWait = () => {
-    setStep('...')
+    setStep('Wait')
   }
 
   const sendData = async () => {
