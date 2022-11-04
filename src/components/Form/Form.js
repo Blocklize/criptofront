@@ -88,15 +88,15 @@ const Form = () => {
       "name": localStorage.getItem("Name"),
       "email": localStorage.getItem("Email"),
       // "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-      "tokenAddress": token,
+      "tokenAddress": token.TokenAddress,
       "cpf": localStorage.getItem("CPF"),
     })
 
     var config = {
       method: 'post',
       headers: {
-        'X-Parse-Application-Id': 'mpxuNMEJnSlytSS75jhHdt4O3bCpxgRr6glWHnKw',
-        'X-Parse-REST-API-Key': 'Spj9NomBOJYsPp2Dh4QFfKjcKIDXOYUhqCONK7AH',
+        'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+        'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
         'Content-Type': 'application/json'
       },
       body: data
@@ -105,10 +105,14 @@ const Form = () => {
     await fetch('https://parseapi.back4app.com/functions/swapPix', config)
       .then(response => response.json())
       .then(json => {
-        console.log(json.result)
-        setBrCode(json.result.brCode)
-        setQrCode(json.result.charge.qrCodeImage)
-        setCorrId(json.result.charge.correlationID)
+        console.log(json)
+        if (json.result.error) {
+          setStep('Error')
+        } else {
+          setBrCode(json.result.brCode)
+          setQrCode(json.result.charge.qrCodeImage)
+          setCorrId(json.result.charge.correlationID)
+        }
       })
       .catch(function (error) {
         console.log(error)
@@ -145,8 +149,8 @@ const Form = () => {
     var config = {
       method: 'post',
       headers: {
-        'X-Parse-Application-Id': 'mpxuNMEJnSlytSS75jhHdt4O3bCpxgRr6glWHnKw',
-        'X-Parse-REST-API-Key': 'Spj9NomBOJYsPp2Dh4QFfKjcKIDXOYUhqCONK7AH',
+        'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+        'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
         'Content-Type': 'application/json'
       },
       body: data

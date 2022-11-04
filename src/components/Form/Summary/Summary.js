@@ -3,9 +3,9 @@ import React from 'react'
 import styles from './Summary.module.css'
 
 const Summary = (props) => {
-    const [price, setPrice] = React.useState(props.price)
-    const [fee, setFee] = React.useState(price * .01)
-    const [gas, setGas] = React.useState(price + fee)
+    const [price, setPrice] = React.useState(0)
+    const [fee, setFee] = React.useState(0)
+    const [gas, setGas] = React.useState(0)
 
     const maskCurrency = (valor, locale = 'pt-BR', currency = 'BRL') => {
         return new Intl.NumberFormat(locale, {
@@ -17,10 +17,10 @@ const Summary = (props) => {
             .trim()
     }
 
-    const formatGas = () => {
-        if (props.gas) {
-            const gas = props.gas.toFixed(5)
-            return maskCurrency(gas)
+    const formatValue = (value) => {
+        if (value) {
+            const formated = value.toFixed(5)
+            return maskCurrency(formated)
         } else {
             return maskCurrency(0)
         }
@@ -28,9 +28,9 @@ const Summary = (props) => {
 
     React.useEffect(() => {
         setPrice(props.price)
-        setFee(price * .025)
-        setGas(formatGas())
-    }, [fee, formatGas, price, props])
+        setFee(formatValue(props.tax))
+        setGas(formatValue(props.gas))
+    }, [fee, formatValue, price, props])
 
     return (
         <div className={styles.summary} style={{ marginTop: props.distance }}>
@@ -47,7 +47,7 @@ const Summary = (props) => {
                     Taxa de processamento
                 </span>
                 <span className={styles.summary__fee__value}>
-                    BRL {maskCurrency(fee)}
+                    BRL {fee}
                 </span>
             </div>
             <div className={styles.summary__total}>

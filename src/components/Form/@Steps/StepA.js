@@ -14,7 +14,7 @@ import SelectorContext from '../../../contexts/SelectorContext'
 const StepA = () => {
     // Context
     const { token } = React.useContext(TokenContext)
-
+    // State
     const [isOpen, setIsOpen] = React.useState(true)
 
     // Animation
@@ -22,6 +22,7 @@ const StepA = () => {
         animation: "entrance .5s ease-out"
     }
     // States
+    const [tax, setTax] = React.useState(0)
     const [price, setPrice] = React.useState(0)
     const [gasFee, setGasFee] = React.useState(0)
     const [payoff, setPayoff] = React.useState(() => {
@@ -44,8 +45,8 @@ const StepA = () => {
         var config = {
             method: 'post',
             headers: {
-                'X-Parse-Application-Id': 'mpxuNMEJnSlytSS75jhHdt4O3bCpxgRr6glWHnKw',
-                'X-Parse-REST-API-Key': 'Spj9NomBOJYsPp2Dh4QFfKjcKIDXOYUhqCONK7AH',
+                'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+                'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
                 'Content-Type': 'application/json'
             },
             body: data
@@ -53,6 +54,8 @@ const StepA = () => {
         await fetch('https://parseapi.back4app.com/functions/calcularTaxaTokens', config)
             .then((response) => response.json())
             .then((json) => {
+                console.log(json)
+                setTax(json.result.taxPrice)
                 setGasFee(json.result.gasPrice)
                 setPrice((json.result.tokensAmount[0] / Math.pow(10, 18)).toFixed(5))
             })
@@ -72,7 +75,7 @@ const StepA = () => {
             <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
                 <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
             </SelectorContext.Provider>
-            <Summary coin={token.TokenSymbol} gas={gasFee} price={payoff} distance="1rem" />
+            <Summary coin={token.TokenSymbol} gas={gasFee} tax={tax} price={payoff} distance="1rem" />
         </div>
     )
 }
