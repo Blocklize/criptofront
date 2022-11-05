@@ -30,7 +30,7 @@ const Summary = (props) => {
         setPrice(props.price)
         setFee(formatValue(props.tax))
         setGas(formatValue(props.gas))
-    }, [fee, formatValue, price, props])
+    }, [formatValue, fee, price, props])
 
     return (
         <div className={styles.summary} style={{ marginTop: props.distance }}>
