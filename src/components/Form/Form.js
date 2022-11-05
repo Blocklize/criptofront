@@ -31,6 +31,7 @@ const Form = () => {
     4: "Pagamento realizado!",
     "Wait": "Gerando código...",
     "Error": "Tente novamente",
+    "Timeout": "Tente novamente",
   }
 
   // Context
@@ -47,6 +48,7 @@ const Form = () => {
   const [transactionId, setTransactionId] = React.useState("")
   const [transactionTime, setTransactionTime] = React.useState("")
   const [transactionPrice, setTransactionPrice] = React.useState("")
+  const [transactionWatcher, setTransactionWatcher] = React.useState(null)
 
   // Buy/Sell thumb
   const thumbBuy = {
@@ -142,9 +144,10 @@ const Form = () => {
   }
 
   const validateStepThree = async () => {
+    getWatcher()
     var data = JSON.stringify({
       "corrId": corrId
-    });
+    })
 
     var config = {
       method: 'post',
@@ -154,17 +157,18 @@ const Form = () => {
         'Content-Type': 'application/json'
       },
       body: data
-    };
+    }
 
     await fetch('https://parseapi.back4app.com/functions/checkTransaction', config)
       .then(response => response.json())
       .then(json => {
         setTimeout(() => {
           if (json.result !== "transaction not passed yet") {
-            console.log(json)
             setTransactionPrice(json.result.amount_BRL)
             setTransactionTime(json.result.time)
             setTransactionId(json.result.corrId)
+            clearTimeout(transactionWatcher)
+            setTransactionWatcher(null)
             setStep(4)
           } else {
             validateStepThree()
@@ -184,12 +188,21 @@ const Form = () => {
     localStorage.removeItem("Address")
   }
 
+  const getWatcher = () => {
+    if (!transactionWatcher) {
+      setTransactionWatcher(setTimeout(() => {
+        setStep('Timeout')
+      }, 10000))
+    }
+  }
+
   // Form validation
 
   const handleValidator = (step) => {
     if (step === 1) validateStepOne()
     if (step === 2) validateStepTwo()
     if (step === "Error") setStep(1)
+    if (step === "Timeout") setStep(1)
   }
 
   React.useEffect(() => {
@@ -209,8 +222,8 @@ const Form = () => {
             Vender
           </button>
         </div>
-        {(step === 2 || step === 4 || step === "Error") && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
-        {(step !== "Wait" && step !== "Error" && (
+        {(step === 2 || step === 4 || step === "Error" || step === "Timeout") && (<div className={styles.form__header__back} onClick={handleBack}> ← </div>)}
+        {(step !== "Wait" && step !== "Error" && step !== "Timeout" && (
           <div className={styles.form__header__step}>
             Step <span>{step}</span> of 4
           </div>
@@ -223,7 +236,8 @@ const Form = () => {
         {step === 3 && (<StepC br={brCode} qr={qrCode} />)}
         {step === 4 && (<StepD transactionId={transactionId} transactionTime={transactionTime} transactionPrice={transactionPrice} />)}
         {step === "Wait" && (<Waiting />)}
-        {step === "Error" && (<Error />)}
+        {step === "Timeout" && (<Error date={new Date(Date.now()).toLocaleString()} message="O tempo para realizar a transação expirou. Por favor, tente novamente." errorId="141" errorName={"TRANSACTION_TIMEOUT"} />)}
+        {step === "Error" && (<Error date={new Date(Date.now()).toLocaleString()} message="Um erro inesperado aconteceu. Por favor, tente novamente." errorId="130" errorName={"UNEXPECTED_ERROR"} />)}
         <NextButton
           text={connected ? buttonText[step] : buttonText[0]}
           distance="2rem"

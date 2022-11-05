@@ -24,14 +24,19 @@
 }
 
 .title {
+    display: block;
     text-align: center;
     font-weight: bold;
     color: #9E85F1;
+    width: 100%;
 }
 
 .text {
+    width: 100%;
+    display: block;
     color: #9E85F1;
     display: block;
+    text-align: center;
 }
 
 @keyframes blink {
