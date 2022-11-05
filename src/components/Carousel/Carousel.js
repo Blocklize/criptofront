@@ -26,6 +26,17 @@ const Carousel = () => {
     const [barLeft, setBarLeft] = React.useState("0")
     const [totalScroll, setTotalScroll] = React.useState("")
     const [scrollCounter, setScrollCounter] = React.useState(0)
+    // Constant values
+    const acceptedTokens = [
+        "SUSHI", "ROUTE", "WBTC",
+        "CRV", "OCEAN", "AVAX",
+        "LINK", "GRT", "AXS",
+        "MKR", "SHIB", "WETH",
+        "COMP", "DAI", "1INCH",
+        "MANA", "MATIC", "GNS",
+        "AAVE", "UNI", "USDT",
+        "MATIC", "SUPER", "ETH"
+    ]
 
     React.useEffect(() => {
         const scrollOffset = carousel.current.scrollWidth - (2 * distance)
@@ -77,20 +88,16 @@ const Carousel = () => {
 
     // Cards
 
-    const config = {
-        method: 'post',
-        headers: {
-            'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
-            'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
-            'Content-Type': 'application/json'
-        }
-    }
-
     const handleTokens = async () => {
-        await fetch('https://parseapi.back4app.com/functions/seeTokenPools', config)
+        await fetch('https://api.1inch.io/v4.0/137/tokens')
             .then(resp => resp.json())
             .then(json => {
-                setTokens(json.result)
+                const strJson = Object.values(json.tokens)
+                const mappedItems = []
+                strJson.forEach(item => {
+                    if (acceptedTokens.includes(item.symbol)) mappedItems.push(item)
+                })
+                setTokens(mappedItems)
             })
             .catch(error => {
                 console.log(error)
@@ -99,7 +106,7 @@ const Carousel = () => {
 
     React.useEffect(() => {
         handleTokens()
-    })
+    }, [])
 
     // JSX
     return (
@@ -120,11 +127,11 @@ const Carousel = () => {
                 <div className={styles.carousel__body} ref={carousel}>
                     {tokens.map(t => (
                         <CoinCard
-                            key={t.TokenSymbol}
-                            symbol={t.TokenSymbol}
-                            name={t.TokenName}
-                            address={t.TokenAddress}
-                            price={t.price}
+                            key={t.symbol}
+                            symbol={t.symbol}
+                            name={t.name}
+                            address={t.address}
+                            image={t.logoURI}
                         />
                     ))}
                 </div>

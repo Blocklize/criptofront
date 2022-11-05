@@ -14,7 +14,8 @@ const Content = () => {
   // Context
   const [token, setToken] = React.useState({
     TokenSymbol: "AVAX",
-    TokenAddress: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b"
+    TokenAddress: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b",
+    TokenLogo: "https://tokens.1inch.io/0x2c89bbc92bd86f8075d1decc58c7f4e0107f286b.png",
   })
   const [validated, setValidated] = React.useState(false)
   return (
