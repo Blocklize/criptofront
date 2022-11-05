@@ -192,7 +192,7 @@ const Form = () => {
     if (!transactionWatcher) {
       setTransactionWatcher(setTimeout(() => {
         setStep('Timeout')
-      }, 10000))
+      }, 60000))
     }
   }
 
