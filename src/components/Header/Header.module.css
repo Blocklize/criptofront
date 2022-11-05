@@ -1,0 +1,45 @@
+.header {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+    justify-content: space-between;
+    height: 4rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 1024px) {
+    .header {
+        padding: 1.5rem .5rem 1.5rem 1rem;
+    }
+}
+
+.header__logo {
+    width: 7rem;
+}
+
+.header__menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__menu__list {
+    list-style: none;
+    padding-right: 1rem;
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .header__menu__list {
+        display: none;
+    }
+}
+
+.header__menu__list__item {
+    display: inline-block;
+    padding: 0 .5rem;
+    color: #9E85F1;
+}

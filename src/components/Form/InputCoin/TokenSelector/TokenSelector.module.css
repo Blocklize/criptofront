@@ -1,0 +1,80 @@
+.container {
+    background: rgba(46, 15, 90, .9);
+    border-bottom: .2rem solid #9E85F1;
+    border-radius: .5rem;
+    overflow: hidden;
+    animation: fadeIn .4s forwards;
+}
+
+.container[disabled] {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        height: 0;
+        opacity: 0;
+    } to {
+        height: auto;
+        opacity: 1;
+    }
+}
+
+.tokenSelector {
+    list-style: none;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 15rem;
+    padding: .6rem 0;
+    max-height: 8.4rem;
+    margin: 0;
+}
+
+.tokenSelector::-webkit-scrollbar {
+    width: .5rem;
+}
+
+.tokenSelector::-webkit-scrollbar-thumb {
+    background: #a994e5;
+    opacity: .4;
+    border-radius: .3rem;
+}
+
+.tokenSelector__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: .5rem .6rem;
+    transition: background .4s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.tokenSelector__item:hover {
+    background: rgba(153, 0, 255, 0.4);
+    cursor: pointer;
+}
+
+.tokenSelector__item__icon {
+    margin-right: .5rem;
+    width: 1.5rem;
+    touch-action: none;
+    pointer-events: none;
+}
+
+.tokenSelector__item__name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    touch-action: none;
+    pointer-events: none;
+}
+
+.loading {
+    display: block;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+}

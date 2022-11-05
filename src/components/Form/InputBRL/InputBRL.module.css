@@ -1,0 +1,40 @@
+.input__label {
+    color: #9E85F1;
+    font-size: .9rem;
+    margin-bottom: .6rem;
+}
+
+.input__field {
+    background: rgba(158, 133, 241, .05);
+    padding: 1rem;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: .1rem solid #9E85F1;
+    transition: border .4s linear, background .4s linear;
+}
+
+.input__field__coin {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: .9rem;
+}
+
+.input__field__item {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: end;
+}
+
+.input__field__item:focus {
+    outline: none;
+}
+
+.invalid {
+    border: .1rem solid #ff0000;
+    background: rgba(158, 5, 5, .05);
+}
+

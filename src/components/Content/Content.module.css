@@ -1,0 +1,27 @@
+.content {
+    width: 85%;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .content {
+        width: 95% !important;
+    }
+}
+
+.content__left__title {
+    font-size: 5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.content__left__text {
+    color: #ffffff;
+}
+
+.content__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

@@ -1,3 +1,36 @@
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url('../public/pjs.woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url('../public/pjs-bold.woff2');
+  font-weight: 600;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans" !important;
+}
+
+a {
+  text-decoration: none !important;
+  color: unset !important;
+  margin: 0 !important;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 20);
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: calc(100vw / 1920 * 80);
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +38,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url(./assets/BG.png);
+  background-size: cover;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  body {
+    background-position-x: -55rem !important;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+
 }

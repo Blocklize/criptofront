@@ -1,0 +1,120 @@
+.form {
+    height: 100%;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, .01);
+    backdrop-filter: blur(3rem);
+    width: 70%;
+    padding: 1.5rem;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .form {
+        min-height: 550px;
+        height: 70vh;
+        width: 100% !important;
+    }
+}
+
+.form__header {
+    width: 90%;
+    position: absolute;
+    top: 1rem;
+    left: 5%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form__header__back {
+    color: #9E85F1;
+    position: absolute;
+    font-size: 1.9rem;
+    top: 0rem;
+    left: 1rem;
+    cursor: pointer;
+    transition: opacity .4s;
+}
+
+.form__header__back:hover {
+    opacity: .5;
+}
+
+.form__header__step {
+    color: #9E85F1;
+    position: absolute;
+    font-size: .9rem;
+    top: .5rem;
+    right: 0;
+}
+
+@media (max-width: 1024px) {
+    .form__header__step {
+        top: 1rem;
+        right: unset;
+    }
+}
+
+.form__header__change {
+    padding: .8rem .5rem;
+    width: 12rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    border-radius: 3rem;
+    justify-content: space-around;
+    background: rgba(23, 13, 36, .4);
+}
+
+@media (max-width: 1024px) {
+    .form__header__change {
+        margin-top: 5rem;
+    }
+}
+
+.form__header__change__thumb {
+    background: rgba(94, 227, 226, .1);
+    border: .05rem solid #5EE3E2;
+    border-radius: 3rem;
+    position: absolute;
+    height: 75%;
+    z-index: 1;
+    transition: width .2s linear, left .2s ease-out;
+}
+
+.form__header__change__button {
+    background: transparent;
+    font-weight: bold;
+    width: 5rem;
+    text-align: center;
+    border: none;
+    color: #9E85F1;
+    position: relative;
+    z-index: 2;
+}
+
+.form__header__change__button[disabled] {
+    color: #5EE3E2;
+}
+
+.form__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: .4rem;
+    background: #5EE3E2;
+    transition: width .4s ease-in;
+}
+
+/* FORM FIELD */
+
+.form__field {
+    width: 100%;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
