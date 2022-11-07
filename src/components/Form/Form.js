@@ -139,7 +139,7 @@ const Form = () => {
       await sendData()
       setTimeout(() => {
         setStep(3)
-      }, 1000);
+      }, 1000)
     }
   }
 
@@ -163,6 +163,9 @@ const Form = () => {
       .then(response => response.json())
       .then(json => {
         setTimeout(() => {
+          if (json.result.transactionOutdated === true) {
+            setStep("Timeout")
+          }
           if (json.result !== "transaction not passed yet") {
             setTransactionPrice(json.result.amount_BRL)
             setTransactionTime(json.result.time)
@@ -173,10 +176,10 @@ const Form = () => {
           } else {
             validateStepThree()
           }
-        }, 10000);
+        }, 10000)
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error)
       })
   }
 

@@ -97,6 +97,14 @@ const Carousel = () => {
                 strJson.forEach(item => {
                     if (acceptedTokens.includes(item.symbol)) mappedItems.push(item)
                 })
+                function compare(a, b) {
+                    if (a.symbol < b.symbol)
+                        return -1;
+                    if (a.symbol > b.symbol)
+                        return 1;
+                    return 0;
+                }
+                mappedItems.sort(compare);
                 setTokens(mappedItems)
             })
             .catch(error => {

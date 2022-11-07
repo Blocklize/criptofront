@@ -48,6 +48,7 @@ const StepA = () => {
         value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
         if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
         else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
+        value -= 0.20 // Subtraindo do valor digitado a taxa de gás
 
         // Taxa de processamento
         let taxValue  = 0 // Iniciando cálculo da taxa
