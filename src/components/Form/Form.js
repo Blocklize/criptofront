@@ -107,7 +107,6 @@ const Form = () => {
     await fetch('https://parseapi.back4app.com/functions/swapPix', config)
       .then(response => response.json())
       .then(json => {
-        console.log(json)
         if (json.result.error) {
           setStep('Error')
         } else {
