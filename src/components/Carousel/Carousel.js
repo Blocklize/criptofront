@@ -22,6 +22,7 @@ const Carousel = () => {
     const [last, setLast] = React.useState(0)
     const [tokens, setTokens] = React.useState([])
     const [labels, setLabels] = React.useState("")
+    const [counter, setCounter] = React.useState(30)
     const [scrolled, setScrolled] = React.useState(0)
     const [barLeft, setBarLeft] = React.useState("0")
     const [totalScroll, setTotalScroll] = React.useState("")
@@ -86,6 +87,20 @@ const Carousel = () => {
         points.push(<div className={styles.carousel__labels__point} key={i}></div>)
     }
 
+    // Counter
+    React.useEffect(() => {
+        setTimeout(() => {
+            if (counter === 0) {
+                setTokens([])
+                setTimeout(() => {
+                    handleTokens()
+                    setCounter(30)
+                }, 1000);
+            }
+            else setCounter(counter - 1)
+        }, 1000);
+    }, [counter])
+
     // Cards
 
     const handleTokens = async () => {
@@ -122,7 +137,7 @@ const Carousel = () => {
             <div className={styles.carousel__counter}>
                 <span className={styles.carousel__counter__text}>
                     Atualizando automaticamente em&nbsp;
-                    <span>30</span>s
+                    <span>{counter}</span>s
                 </span>
             </div>
             {tokens.length === 0 && (
