@@ -15,7 +15,7 @@
 @media (max-width: 1024px) {
     .form {
         min-height: 550px;
-        height: 70vh;
+        height: 36rem;
         width: 100% !important;
     }
 }
