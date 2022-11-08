@@ -33,7 +33,7 @@ const InputCoin = (props) => {
                     id={props.name}
                     name={props.name}
                     className={styles.input__field__item}
-                    value={props.value}
+                    value={`~${props.value}`}
                     autoComplete="off"
                     type="text"
                     readOnly

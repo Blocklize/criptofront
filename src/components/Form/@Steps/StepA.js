@@ -44,43 +44,25 @@ const StepA = () => {
     const getFee = async (number) => { // Função recebe o valor digitado
         // Inflações
         let value = number // Definindo a variável value sendo igual ao valor digitado
-        value -= number * .010 // Subtraindo do valor digitado a inflação do token
+        // value -= number * .010 // Subtraindo do valor digitado a inflação do token
         value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
         if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
         else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
         value -= 0.20 // Subtraindo do valor digitado a taxa de gás
 
         // Taxa de processamento
-        let taxValue  = 0 // Iniciando cálculo da taxa
-        taxValue += number * .010 // Adicionando ao total da taxa o valor da inflação do token
+        let taxValue = 0 // Iniciando cálculo da taxa
+        // taxValue += number * .010 // Adicionando ao total da taxa o valor da inflação do token
         taxValue += number * .017 // Adicionando ao total da taxa o valor da taxa de processamento
         if (number > 62.5) taxValue += number * .008 // Adicionando ao total da taxa o valor da taxa complexa
         else taxValue += 0.5 // Adicionando ao total da taxa o valor da taxa fixa
         setTax(taxValue) // Setando a taxa de processamento variável
 
-        // Requisições
-        await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL') // Obter o bid USD - BRL
-            .then(resp => resp.json()) // Converter a resposta para json
-            .then(async json => { // Obtendo a resposta em json
-                let usdPayoff = value / json.USDBRL.bid // Convertendo o valor inflacionado para dólares
-                usdPayoff = ~~(usdPayoff * Math.pow(10, 6)) // Transformando o valor em doláres em uma number string
-                await fetch(`https://api.1inch.io/v4.0/137/quote?fromTokenAddress=${mainToken}&toTokenAddress=${token.TokenAddress}&amount=${usdPayoff}`) // Obtendo o valor do token
-                    .then(res => res.json()) // Convertendo a resposta para json
-                    .then(json => {
-                        const amount = (json.toTokenAmount / Math.pow(10, json.toToken.decimals)) // Convertendo o token para casas decimais
-                        setPrice(amount.toFixed(5)) // Setando o valor do token
-                        setGasFee(.20) // Setando a taxa de gás da rede
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        setPrice(0)
-                    })
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        setPrice((value / valuation).toFixed(5))
+        setGasFee(.20) // Setando a taxa de gás da rede
     }
 
+    // Essa função retorna o valor do token em reais inflacionado.
     const getValuation = async () => {
         await fetch(`https://api.1inch.io/v4.0/137/quote?fromTokenAddress=${mainToken}&toTokenAddress=${token.TokenAddress}&amount=${1000000}`)
             .then(res => res.json())
@@ -89,10 +71,8 @@ const StepA = () => {
                 await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL')
                     .then(resp => resp.json())
                     .then(json => {
-                        let value = json.USDBRL.bid * (1 / tokenAmountForValue)
+                        let value = (json.USDBRL.bid * 1.003) * (1 / tokenAmountForValue)
                         value += value * 0.010 // Inflação de 1%
-                        value += value * 0.017 // Taxa de processamento simples
-                        value += 0.502
                         setValuation(value)
                     })
                     .catch(error => {
@@ -110,7 +90,7 @@ const StepA = () => {
         const number = localStorage.getItem("buyValue")
         getValuation()
         getFee(number)
-    }, [token])
+    }, [token, price])
 
     return (
         <div style={entranceConfig}>
