@@ -4,6 +4,7 @@
     backdrop-filter: blur(1rem);
     padding: 1.2rem;
     width: 18.5rem;
+    height: 16.5rem;
     flex-shrink: 0;
     margin-right: 1rem;
 }
