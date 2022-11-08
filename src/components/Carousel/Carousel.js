@@ -92,6 +92,9 @@ const Carousel = () => {
         setTimeout(() => {
             if (counter === 0) {
                 setTokens([])
+                setScrollCounter(0)
+                setTotalScroll("")
+                setScrolled(0)
                 setTimeout(() => {
                     handleTokens()
                     setCounter(30)
