@@ -21,8 +21,12 @@ const InputCoin = (props) => {
                 htmlFor={props.name}>
                 {props.label}
                 <span className={styles.input__label__info}>
-                    <img src={Info} alt="Info icon" width="100%"/>
-                    <div className={styles.input__label__info__bubble}>Os valores serão atualizados em: {props.reload}s</div>
+                    <img src={Info} alt="Info icon" width="100%" />
+                    <div className={styles.input__label__info__bubble}>
+                        O valor a receber é aproximado, devido à variação do mercado.
+                        <br />
+                        Próxima atualização em: {props.reload}s
+                    </div>
                 </span>
             </label>
             <div className={styles.input__field}>

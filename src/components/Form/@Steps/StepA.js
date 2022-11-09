@@ -45,26 +45,17 @@ const StepA = () => {
     const getFee = (number) => { // Função recebe o valor digitado
         // Inflações
         let value = number // Definindo a variável value sendo igual ao valor digitado
-        // // value -= number * .010 // Subtraindo do valor digitado a inflação do token
-        // value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
-        // if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
-        // else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
-        // value -= 0.20 // Subtraindo do valor digitado a taxa de gás
-
-        // Taxa de processamento
         let taxValue = 0 // Iniciando cálculo da taxa
-        // taxValue += number * .010 // Adicionando ao total da taxa o valor da inflação do token
         taxValue += number * .017 // Adicionando ao total da taxa o valor da taxa de processamento
         if (number > 62.5) taxValue += number * .008 // Adicionando ao total da taxa o valor da taxa complexa
         else taxValue += 0.5 // Adicionando ao total da taxa o valor da taxa fixa
-        setTax(taxValue) // Setando a taxa de processamento variável
+        if (value >= 20) { setTax(taxValue); setGasFee(.20) } // Setando a taxa de processamento variável e gás da rede
+        else { setTax(0); setGasFee(0) } // Zerando taxas e gás da rede em caso do valor inserido ser inválido
 
-        value -= taxValue;
-        if ((value / valuation).toFixed(5) < 0) {
-            value = 0
-        }
-        setPrice((value / valuation).toFixed(5))
-        setGasFee(.20) // Setando a taxa de gás da rede
+        // Setando o valor
+        value -= taxValue; // Subtraindo taxas do valor inputado
+        if ((value / valuation).toFixed(5) < 0) value = 0 // Zerando valor caso resultado da soma seja negativo
+        setPrice((value / valuation).toFixed(5)) // Setando preço
     }
 
     // Essa função retorna o valor do token em reais inflacionado.

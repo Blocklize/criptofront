@@ -17,11 +17,9 @@ const InputCPF = (props) => {
             setValidation(false)
             localStorage.setItem("CPF", "")
         } else {
-            if (checkSum(onlyDigits)) {
-                setValidation(true)
-                setStorage(onlyDigits)
-                localStorage.setItem("CPF", onlyDigits)
-            }
+            setValidation(true)
+            setStorage(onlyDigits)
+            localStorage.setItem("CPF", onlyDigits)
         }
     }
 
@@ -31,17 +29,6 @@ const InputCPF = (props) => {
         cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
         cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
         return cpf
-    }
-
-    const checkSum = (cpf) => {
-        let arr = []
-        const base = [33, 44, 55, 66]
-        const split = cpf.split("")
-        split.forEach(number => arr.push(+number))
-        const soma = arr.reduce(function (soma, i) {
-            return soma + i
-        })
-        return base.includes(soma) ? true : false
     }
 
     React.useEffect(() => {

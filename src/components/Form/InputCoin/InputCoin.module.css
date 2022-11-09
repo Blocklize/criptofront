@@ -81,6 +81,7 @@
 
 .input__label__info:hover .input__label__info__bubble {
     opacity: 1;
+    transform: translateX(-.75rem) translateY(-0%);
 }
 
 .input__label__info__bubble {
@@ -90,7 +91,7 @@
     top: 2rem;
     border-radius: .5rem;
     background: rgba(16, 6, 24, 1);
-    transform: translateX(-.75rem);
+    transform: translateX(-.75rem) translateY(-10000%);
     padding: 1rem;
     font-size: .7rem;
     text-align: center;
