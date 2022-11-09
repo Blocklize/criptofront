@@ -2,6 +2,8 @@
     color: #9E85F1;
     font-size: .9rem;
     margin-bottom: .6rem;
+    position: relative;
+    z-index: 30;
 }
 
 .input__field {
@@ -13,6 +15,7 @@
     justify-content: space-between;
     border: .1rem solid #9E85F1;
     position: relative;
+    z-index: 1;
 }
 
 .input__field__coin {
@@ -66,4 +69,42 @@
 
 .input__field__selector[disabled] {
     display: none;
+}
+
+.input__label__info {
+    margin-left: .5rem;
+    display: inline-block;
+    transform: translateY(-.05rem);
+    width: .8rem;
+    position: relative;
+}
+
+.input__label__info:hover .input__label__info__bubble {
+    opacity: 1;
+}
+
+.input__label__info__bubble {
+    display: block;
+    min-width: 10rem;
+    position: absolute;
+    top: 2rem;
+    border-radius: .5rem;
+    background: rgba(16, 6, 24, 1);
+    transform: translateX(-.75rem);
+    padding: 1rem;
+    font-size: .7rem;
+    text-align: center;
+    transition: opacity .4s;
+    opacity: 0;
+}
+
+.input__label__info__bubble::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: .5rem;
+    height: .5rem;
+    background: rgba(16, 6, 24, 1);
+    top: -.25rem;
+    transform: rotate(45deg);
 }

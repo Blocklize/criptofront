@@ -25,6 +25,7 @@ const StepA = () => {
     const [tax, setTax] = React.useState(0)
     const [price, setPrice] = React.useState(0)
     const [gasFee, setGasFee] = React.useState(0)
+    const [counter, setCounter] = React.useState(30)
     const [valuation, setValuation] = React.useState(0)
     const [payoff, setPayoff] = React.useState(() => {
         const getItem = localStorage.getItem("buyValue")
@@ -37,18 +38,18 @@ const StepA = () => {
     // Functions
     const handleConversion = async (e) => {
         const number = +(e.target.value.replaceAll(".", "").replace(",", "."))
-        getFee(number)
         setPayoff(number)
+        getFee(number)
     }
 
-    const getFee = async (number) => { // Função recebe o valor digitado
+    const getFee = (number) => { // Função recebe o valor digitado
         // Inflações
         let value = number // Definindo a variável value sendo igual ao valor digitado
-        // value -= number * .010 // Subtraindo do valor digitado a inflação do token
-        value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
-        if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
-        else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
-        value -= 0.20 // Subtraindo do valor digitado a taxa de gás
+        // // value -= number * .010 // Subtraindo do valor digitado a inflação do token
+        // value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
+        // if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
+        // else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
+        // value -= 0.20 // Subtraindo do valor digitado a taxa de gás
 
         // Taxa de processamento
         let taxValue = 0 // Iniciando cálculo da taxa
@@ -58,6 +59,10 @@ const StepA = () => {
         else taxValue += 0.5 // Adicionando ao total da taxa o valor da taxa fixa
         setTax(taxValue) // Setando a taxa de processamento variável
 
+        value -= taxValue;
+        if ((value / valuation).toFixed(5) < 0) {
+            value = 0
+        }
         setPrice((value / valuation).toFixed(5))
         setGasFee(.20) // Setando a taxa de gás da rede
     }
@@ -90,13 +95,26 @@ const StepA = () => {
         const number = localStorage.getItem("buyValue")
         getValuation()
         getFee(number)
-    }, [token, price])
+    }, [token, valuation])
+
+    // Counter
+    React.useEffect(() => {
+        setTimeout(() => {
+            if (counter === 0) {
+                getValuation()
+                setTimeout(() => {
+                    setCounter(30)
+                }, 1000);
+            }
+            else setCounter(counter - 1)
+        }, 1000);
+    }, [counter])
 
     return (
         <div style={entranceConfig}>
             <InputBRL name="buyValue" label="Escolha o valor" onChange={handleConversion} value={payoff} />
             <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
-                <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
+                <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} reload={counter} />
             </SelectorContext.Provider>
             <Summary coin={token.TokenSymbol} gas={gasFee} tax={tax} price={valuation} distance="1rem" />
         </div>

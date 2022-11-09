@@ -4,6 +4,7 @@ import Chevron from '../../../assets/chevron.png'
 import TokenSelector from './TokenSelector/TokenSelector'
 import TokenContext from '../../../contexts/TokenContext'
 import SelectorContext from '../../../contexts/SelectorContext'
+import Info from '../../../assets/info.png'
 
 const InputCoin = (props) => {
     const { token } = React.useContext(TokenContext)
@@ -19,6 +20,10 @@ const InputCoin = (props) => {
                 className={styles.input__label}
                 htmlFor={props.name}>
                 {props.label}
+                <span className={styles.input__label__info}>
+                    <img src={Info} alt="Info icon" width="100%"/>
+                    <div className={styles.input__label__info__bubble}>Os valores serão atualizados em: {props.reload}s</div>
+                </span>
             </label>
             <div className={styles.input__field}>
                 <div className={styles.input__field__coin} onClick={handleClick}>
