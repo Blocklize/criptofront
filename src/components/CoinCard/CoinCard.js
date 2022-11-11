@@ -21,11 +21,8 @@ const CoinCard = (props) => {
                 await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL')
                     .then(resp => resp.json())
                     .then(json => {
-                        let value = json.USDBRL.bid * (1 / tokenAmountForValue)
+                        let value = (json.USDBRL.bid * 1.003) * (1 / tokenAmountForValue)
                         value += value * 0.010 // Inflação de 1%
-                        value += value * 0.017 // Taxa de processamento simples
-                        value += 0.502
-                        value += 0.20
                         setPrice(value)
                     })
                     .catch(error => {

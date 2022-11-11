@@ -25,6 +25,7 @@ const StepA = () => {
     const [tax, setTax] = React.useState(0)
     const [price, setPrice] = React.useState(0)
     const [gasFee, setGasFee] = React.useState(0)
+    const [counter, setCounter] = React.useState(30)
     const [valuation, setValuation] = React.useState(0)
     const [payoff, setPayoff] = React.useState(() => {
         const getItem = localStorage.getItem("buyValue")
@@ -37,50 +38,27 @@ const StepA = () => {
     // Functions
     const handleConversion = async (e) => {
         const number = +(e.target.value.replaceAll(".", "").replace(",", "."))
-        getFee(number)
         setPayoff(number)
+        getFee(number)
     }
 
-    const getFee = async (number) => { // Função recebe o valor digitado
+    const getFee = (number) => { // Função recebe o valor digitado
         // Inflações
         let value = number // Definindo a variável value sendo igual ao valor digitado
-        value -= number * .010 // Subtraindo do valor digitado a inflação do token
-        value -= number * .017 // Subtraindo do valor digitado a taxa de processamento
-        if (number > 62.5) value -= number * .008 // Subtraindo do valor digitado a taxa complexa
-        else value -= 0.5 // Subtraindo do valor digitado a taxa fixa
-        value -= 0.20 // Subtraindo do valor digitado a taxa de gás
-
-        // Taxa de processamento
-        let taxValue  = 0 // Iniciando cálculo da taxa
-        taxValue += number * .010 // Adicionando ao total da taxa o valor da inflação do token
+        let taxValue = 0 // Iniciando cálculo da taxa
         taxValue += number * .017 // Adicionando ao total da taxa o valor da taxa de processamento
         if (number > 62.5) taxValue += number * .008 // Adicionando ao total da taxa o valor da taxa complexa
         else taxValue += 0.5 // Adicionando ao total da taxa o valor da taxa fixa
-        setTax(taxValue) // Setando a taxa de processamento variável
+        if (value >= 20) { setTax(taxValue); setGasFee(.20) } // Setando a taxa de processamento variável e gás da rede
+        else { setTax(0); setGasFee(0) } // Zerando taxas e gás da rede em caso do valor inserido ser inválido
 
-        // Requisições
-        await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL') // Obter o bid USD - BRL
-            .then(resp => resp.json()) // Converter a resposta para json
-            .then(async json => { // Obtendo a resposta em json
-                let usdPayoff = value / json.USDBRL.bid // Convertendo o valor inflacionado para dólares
-                usdPayoff = ~~(usdPayoff * Math.pow(10, 6)) // Transformando o valor em doláres em uma number string
-                await fetch(`https://api.1inch.io/v4.0/137/quote?fromTokenAddress=${mainToken}&toTokenAddress=${token.TokenAddress}&amount=${usdPayoff}`) // Obtendo o valor do token
-                    .then(res => res.json()) // Convertendo a resposta para json
-                    .then(json => {
-                        const amount = (json.toTokenAmount / Math.pow(10, json.toToken.decimals)) // Convertendo o token para casas decimais
-                        setPrice(amount.toFixed(5)) // Setando o valor do token
-                        setGasFee(.20) // Setando a taxa de gás da rede
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        setPrice(0)
-                    })
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        // Setando o valor
+        value -= taxValue; // Subtraindo taxas do valor inputado
+        if ((value / valuation).toFixed(5) < 0) value = 0 // Zerando valor caso resultado da soma seja negativo
+        setPrice((value / valuation).toFixed(5)) // Setando preço
     }
 
+    // Essa função retorna o valor do token em reais inflacionado.
     const getValuation = async () => {
         await fetch(`https://api.1inch.io/v4.0/137/quote?fromTokenAddress=${mainToken}&toTokenAddress=${token.TokenAddress}&amount=${1000000}`)
             .then(res => res.json())
@@ -89,10 +67,8 @@ const StepA = () => {
                 await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL')
                     .then(resp => resp.json())
                     .then(json => {
-                        let value = json.USDBRL.bid * (1 / tokenAmountForValue)
+                        let value = (json.USDBRL.bid * 1.003) * (1 / tokenAmountForValue)
                         value += value * 0.010 // Inflação de 1%
-                        value += value * 0.017 // Taxa de processamento simples
-                        value += 0.502
                         setValuation(value)
                     })
                     .catch(error => {
@@ -110,13 +86,26 @@ const StepA = () => {
         const number = localStorage.getItem("buyValue")
         getValuation()
         getFee(number)
-    }, [token])
+    }, [token, valuation])
+
+    // Counter
+    React.useEffect(() => {
+        setTimeout(() => {
+            if (counter === 0) {
+                getValuation()
+                setTimeout(() => {
+                    setCounter(30)
+                }, 1000);
+            }
+            else setCounter(counter - 1)
+        }, 1000);
+    }, [counter])
 
     return (
         <div style={entranceConfig}>
             <InputBRL name="buyValue" label="Escolha o valor" onChange={handleConversion} value={payoff} />
             <SelectorContext.Provider value={{ isOpen, setIsOpen }}>
-                <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} />
+                <InputCoin name="buyValue" label="Após a compra você receberá" distance="1rem" value={price} reload={counter} />
             </SelectorContext.Provider>
             <Summary coin={token.TokenSymbol} gas={gasFee} tax={tax} price={valuation} distance="1rem" />
         </div>
