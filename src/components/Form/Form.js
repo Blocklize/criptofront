@@ -50,6 +50,11 @@ const Form = () => {
   const [transactionPrice, setTransactionPrice] = React.useState("")
   const [transactionWatcher, setTransactionWatcher] = React.useState(null)
 
+
+
+  const [validation, setValidation] = React.useState(false)
+  const [check, setCheck] = React.useState(true)
+
   // Buy/Sell thumb
   const thumbBuy = {
     'left': '.5rem',
@@ -140,6 +145,13 @@ const Form = () => {
         setStep(3)
       }, 1000)
     }
+    handleNextStep(validation)
+
+  }
+
+  const handleNextStep = (bool) => {
+    if (bool) setStep(step + 1)
+    else setCheck(false)
   }
 
   const validateStepThree = async () => {
@@ -234,7 +246,7 @@ const Form = () => {
 
       <form ref={Form} className={styles.form__field}>
         {step === 1 && (<StepA />)}
-        {step === 2 && (<StepB />)}
+        {step === 2 && (<StepB extra={setValidation} check={check} />)}
         {step === 3 && (<StepC br={brCode} qr={qrCode} />)}
         {step === 4 && (<StepD transactionId={transactionId} transactionTime={transactionTime} transactionPrice={transactionPrice} />)}
         {step === "Wait" && (<Waiting />)}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './InputCPF.module.css'
 import Icon from '../../../assets/icon-cpf.png'
@@ -15,13 +16,21 @@ const InputCPF = (props) => {
 
         if (event.target.value.length < event.target.minLength) {
             setValidation(false)
-            localStorage.setItem("CPF", "")
+            localStorage.removeItem("CPF")
         } else {
             setValidation(true)
             setStorage(onlyDigits)
             localStorage.setItem("CPF", onlyDigits)
         }
     }
+
+    React.useEffect(() => {
+        if (props.extra) props.extra(validation)
+    }, [validation])
+
+    React.useEffect(() => {
+        if (props.extra) props.extra(!validation)
+    }, [])
 
     const maskCPF = (cpf) => {
         cpf = cpf.replace(/\D/g, "")
@@ -32,8 +41,20 @@ const InputCPF = (props) => {
     }
 
     React.useEffect(() => {
-        if (localStorage.getItem("CPF")) setStorage(localStorage.getItem("CPF"))
+        if (localStorage.getItem("CPF")) {
+            setStorage(localStorage.getItem("CPF"))
+            setValidation(true)
+            props.extra(validation)
+        }
     }, [storage])
+
+    React.useEffect(() => {
+        if (props.check !== undefined) {
+            if (!localStorage.getItem("CPF")) {
+                setValidation(props.check)
+            }
+        }
+    }, [props.check])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
