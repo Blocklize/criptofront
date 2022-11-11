@@ -7,27 +7,28 @@ import styles from "./Header.module.css"
 import Logo from "../../assets/Logo.png"
 // Components
 import Wallet from "../Wallet/Wallet"
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
         <header className={styles.header}>
-            <a href="/">
+            <Link to="/">
                 <img
                     className={styles.header__logo}
                     src={Logo}
                     alt="Blocklize Logo"
                 />
-            </a>
+            </Link>
             <div className={styles.header__menu}>
                 <ul className={styles.header__menu__list}>
                     <li className={styles.header__menu__list__item}>
-                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">About</a>
+                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Sobre</a>
                     </li>
                     <li className={styles.header__menu__list__item}>
-                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Mint</a>
+                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Equipe</a>
                     </li>
                     <li className={styles.header__menu__list__item}>
-                        <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Team</a>
+                        <Link to={'login'}>Login / Cadastro</Link>
                     </li>
                 </ul>
                 <Wallet />

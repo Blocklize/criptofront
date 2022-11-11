@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './InputName.module.css'
 import Icon from '../../../assets/icon-person.png'
@@ -17,7 +18,7 @@ const InputName = (props) => {
     const handleValidation = (e) => {
         if (e.target.value.length < e.target.minLength) {
             setValidation(false)
-            localStorage.setItem("Name", "")
+            localStorage.removeItem("Name")
         } else {
             setValidation(true)
             setStorage(e.target.value)
@@ -26,8 +27,30 @@ const InputName = (props) => {
     }
 
     React.useEffect(() => {
-        if (localStorage.getItem("Name")) setStorage(localStorage.getItem("Name"))
+        if (props.extra) props.extra(validation)
+    }, [validation])
+
+    React.useEffect(() => {
+        if (props.extra) {
+            props.extra(!validation)
+        }
+    }, [])
+
+    React.useEffect(() => {
+        if (localStorage.getItem("Name")) {
+            setStorage(localStorage.getItem("Name"))
+            setValidation(true)
+            props.extra(validation)
+        }
     }, [storage])
+
+    React.useEffect(() => {
+        if (props.check !== undefined) {
+            if (!localStorage.getItem("Name")) {
+                setValidation(props.check)
+            }
+        }
+    }, [props.check])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>

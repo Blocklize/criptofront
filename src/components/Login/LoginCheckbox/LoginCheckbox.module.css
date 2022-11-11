@@ -1,0 +1,19 @@
+.input {
+    color: #9E85F1;
+    margin-top: 1rem;
+}
+
+.input__check {
+    background-color: #170B1D !important;
+    border-color: #9E85F1 !important;
+    cursor: pointer !important;
+}
+
+.input__check:checked {
+    background-color: #9E85F1 !important;
+    border-color: #9E85F1 !important;
+}
+
+.input__check:focus {
+    box-shadow: none;
+}

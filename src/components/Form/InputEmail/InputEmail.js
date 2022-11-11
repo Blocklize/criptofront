@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './InputEmail.module.css'
 import Icon from '../../../assets/icon-at.png'
@@ -14,13 +15,33 @@ const InputEmail = (props) => {
             localStorage.setItem("Email", e.target.value)
         } else {
             setValidation(false)
-            localStorage.setItem("Email", "")
+            localStorage.removeItem("Email")
         }
     }
 
     React.useEffect(() => {
-        if (localStorage.getItem("Email")) setStorage(localStorage.getItem("Email"))
+        if (props.extra) props.extra(validation)
+    }, [validation])
+
+    React.useEffect(() => {
+        if (props.extra) props.extra(!validation)
+    }, [])
+
+    React.useEffect(() => {
+        if (localStorage.getItem("Email")) {
+            setStorage(localStorage.getItem("Email"))
+            setValidation(true)
+            props.extra(validation)
+        }
     }, [storage])
+
+    React.useEffect(() => {
+        if (props.check !== undefined) {
+            if (!localStorage.getItem("Email")) {
+                setValidation(props.check)
+            }
+        }
+    }, [props.check])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
