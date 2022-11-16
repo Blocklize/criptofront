@@ -14,12 +14,44 @@ const Register = () => {
 
     const handleStepValidator = (e) => {
         e.preventDefault()
-        handleNextStep(validation)
+        if (step === 0) handleNextStep(validation)
+        if (step === 1) return validation ? handleStepB() : handleNextStep(false)
     }
 
     const handleNextStep = (bool) => {
         if (bool) setStep(step + 1)
         else setCheck(false)
+    }
+
+    const handleStepB = async () => {
+        if (localStorage.getItem("Key") === localStorage.getItem("Match")) {
+            // Send data
+            var data = JSON.stringify({
+                "nome": localStorage.getItem("Name"),
+                "email": localStorage.getItem("Email"),
+                "cpf": localStorage.getItem("CPF"),
+                "password": localStorage.getItem("Key")
+            })
+
+            var config = {
+                method: 'post',
+                headers: {
+                    'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+                    'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            }
+            await fetch('https://parseapi.back4app.com/functions/criarUser', config)
+                .then(() => {
+                    handleNextStep(validation)
+                    localStorage.removeItem("Key")
+                    localStorage.removeItem("Match")
+                })
+                .catch(error => {
+                    return (error)
+                })
+        } else handleNextStep(false)
     }
 
     return (

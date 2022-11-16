@@ -42,8 +42,8 @@ const Wallet = () => {
             waitingExtensionResponse()
             await provider.send("eth_requestAccounts", [])
             const address = await signer.getAddress()
-            setWalletAdress(minimizeAddress(address))
-            localStorage.setItem("Address", address)
+            setWalletAdress(address)
+            localStorage.setItem("Address", walletAdress)
             setConnected(true)
         }
 
@@ -57,8 +57,8 @@ const Wallet = () => {
         if (connected) {
             return (
                 <div ref={walletInfo} className={styles.header__menu__wallet}>
-                    <span className={styles.header__menu__wallet__name}>{walletAdress}</span>
-                    <Jazzicon diameter="30" seed={jsNumberForAddress(walletAdress)} />
+                    <span className={styles.header__menu__wallet__name}>{minimizeAddress(localStorage.getItem("Address"))}</span>
+                    <Jazzicon diameter="30" seed={jsNumberForAddress(minimizeAddress(localStorage.getItem("Address")))} />
                 </div>
             )
         } else {

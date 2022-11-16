@@ -6,18 +6,19 @@ import styles from './Steps.module.css'
 
 const StepB = (props) => {
     const [valid, setValid] = React.useState(false)
-    const [check, setCheck] = React.useState(false)
+    const [match, setMatch] = React.useState(false)
     const [pass, setPass] = React.useState(false)
+    const [check, setCheck] = React.useState(true)
 
     const handleValidator = () => {
-        if (pass) console.log()
-        setValid(true)
+        if (pass && match) setValid(true)
+        else setValid(false)
     }
 
     React.useEffect(() => {
         props.extra(true)
         handleValidator()
-    }, [])
+    }, [pass, match])
 
     React.useEffect(() => {
         props.extra(valid)
@@ -29,15 +30,15 @@ const StepB = (props) => {
 
     return (
         <div className={styles.step}>
-            <InputPass label="Crie sua senha" distance="1rem" extra={setPass} check={check} />
+            <InputPass label="Crie sua senha" distance="1rem" extra={setPass} check={check} kind={"Key"} />
             <p className={styles.description}>
-                Sua senha deve conter 10 caracteres; <br />
-                Não pode conter sequências numéricas; <br />
-                Deve ter ao menos uma letra maiúscula; <br />
-                Deve ter ao menos um caractere especial.
+                Deve ter ao menos 10 caracteres; <br />
+                Deve ter ao menos um número; <br />
+                Deve ter ao menos um caractere especial. <br />
+                Deve ter ao menos uma letra maiúscula e minúscula;
             </p>
             <ProgressBar />
-            <InputPass label="Confirme a sua senha" distance="1rem" extra={setPass} check={check} />
+            <InputPass label="Confirme a sua senha" distance="1rem" extra={setMatch} check={check} kind={"Match"} />
         </div>
     )
 }

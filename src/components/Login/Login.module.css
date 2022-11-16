@@ -38,6 +38,14 @@
     color: #9E85F1 !important;
 }
 
+.login[disabled] {
+    opacity: .2;
+    cursor: default;
+    touch-action: none;
+    pointer-events: none;
+    user-select: none;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
