@@ -5,12 +5,13 @@ import Icon from '../../../assets/icon-cpf.png'
 import UserContext from '../../../contexts/UserContext'
 
 const InputCPF = (props) => {
+    const field = React.useRef(null)
     const { user } = React.useContext(UserContext)
     const [readOnly, setReadOnly] = React.useState(false)
     const [validation, setValidation] = React.useState(true)
     const [storage, setStorage] = React.useState("")
 
-    const handleCPF = (event) => {
+    const handleCPF = async (event) => {
         const onlyDigits = event.target.value
             .split("")
             .filter(s => /\d/.test(s))
@@ -21,7 +22,11 @@ const InputCPF = (props) => {
             setValidation(false)
             localStorage.removeItem("CPF")
         } else {
-            setValidation(true)
+            if (props.database !== undefined) {
+                const result = await props.database(onlyDigits)
+                return result === "User not found" ? setValidation(true) : setValidation(false)
+            }
+            else setValidation(true)
             setStorage(onlyDigits)
             localStorage.setItem("CPF", onlyDigits)
         }
@@ -60,6 +65,16 @@ const InputCPF = (props) => {
     }, [props.check])
 
     React.useEffect(() => {
+        (async () => {
+            if (props.database !== undefined) {
+                const result = await props.database(localStorage.getItem("CPF")|| "ELIMINA")
+                return result === "User not found" ? setValidation(true) : setValidation(false)
+            }
+            else setValidation(true)
+        })()
+    }, [])
+
+    React.useEffect(() => {
         if (user.CPF) {
             setReadOnly(true)
         }
@@ -77,6 +92,7 @@ const InputCPF = (props) => {
                     <img className={styles.input__field__icon__media} src={Icon} alt="Icon" />
                 </div>
                 <input
+                    ref={field}
                     id={props.name}
                     name={props.name}
                     className={styles.input__field__item}
