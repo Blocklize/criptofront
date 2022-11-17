@@ -22,13 +22,13 @@ const InputCPF = (props) => {
             setValidation(false)
             localStorage.removeItem("CPF")
         } else {
+            setStorage(onlyDigits)
+            localStorage.setItem("CPF", onlyDigits)
             if (props.database !== undefined) {
                 const result = await props.database(onlyDigits)
                 return result === "User not found" ? setValidation(true) : setValidation(false)
             }
             else setValidation(true)
-            setStorage(onlyDigits)
-            localStorage.setItem("CPF", onlyDigits)
         }
     }
 
