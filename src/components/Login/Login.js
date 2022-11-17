@@ -25,34 +25,36 @@ const Login = (props) => {
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        let data = JSON.stringify({
-            "email": localStorage.getItem("Email"),
-            "password": localStorage.getItem(Password),
-        })
-
-        let config = {
-            method: 'post',
-            headers: {
-                'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
-                'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
-                'Content-Type': 'application/json'
-            },
-            body: data
-        };
-        await fetch('https://parseapi.back4app.com/functions/login', config)
-            .then(resp => resp.json())
-            .then(json => Object.values(json)[0])
-            .then(u =>  {
-                if (u !== -1 && u !== 101) {
-                    localStorage.removeItem(Password)
-                    localStorage.setItem("CPF", u.cpf)
-                    localStorage.setItem("Address", u.address)
-                    localStorage.setItem("JWT", u.sessionToken)
-                    setConnected(true)
-                } else {
-                    setValid(false)
-                }
+        if (valid) {
+            let data = JSON.stringify({
+                "email": localStorage.getItem("Email"),
+                "password": localStorage.getItem(Password),
             })
+    
+            let config = {
+                method: 'post',
+                headers: {
+                    'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+                    'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            };
+            await fetch('https://parseapi.back4app.com/functions/login', config)
+                .then(resp => resp.json())
+                .then(json => Object.values(json)[0])
+                .then(u =>  {
+                    if (u !== -1 && u !== 101) {
+                        localStorage.removeItem(Password)
+                        localStorage.setItem("CPF", u.cpf)
+                        localStorage.setItem("Address", u.address)
+                        localStorage.setItem("JWT", u.sessionToken)
+                        setConnected(true)
+                    } else {
+                        setValid(false)
+                    }
+                })
+        } else setCheck(false)
     }
 
     React.useEffect(() => {
@@ -63,9 +65,15 @@ const Login = (props) => {
         setCheck(valid)
     }, [valid])
 
+    React.useEffect(() => {
+        if(!localStorage.getItem("Key")) setCheck(true)
+        console.log(valid)
+        console.log(email, pass)
+    }, [])
+
     if(connected) return <Navigate to='/' />
     return (
-        <div className="container">
+        <div className={styles.container}>
             <div className="row justify-content-center">
                 <div className="col-lg-6 d-flex justify-content-center">
                     <div className={styles.login} disabled={connected}>

@@ -55,7 +55,7 @@ const Register = () => {
     }
 
     return (
-        <div className="container">
+        <div className={styles.container}>
             <div className="row justify-content-center">
                 <div className="col-lg-6 d-flex justify-content-center">
                     <div className={styles.register}>
