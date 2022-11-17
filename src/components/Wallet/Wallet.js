@@ -54,7 +54,9 @@ const Wallet = () => {
             await provider.send("eth_requestAccounts", [])
             const address = await signer.getAddress()
             localStorage.setItem("Address", address)
-            setConnected(true)
+            setTimeout(() => {
+                setConnected(true)
+            }, 1000);
         }
 
         const waitingExtensionResponse = () => {

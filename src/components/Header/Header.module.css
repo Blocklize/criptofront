@@ -44,3 +44,7 @@
     padding: 0 .5rem;
     color: #9E85F1;
 }
+
+.header__menu__list__item:hover {
+    color: #997bff;
+}
