@@ -94,11 +94,9 @@ const Login = () => {
     }, [valid])
 
     React.useEffect(() => {
-        console.log(check);
-        if (!localStorage.getItem("Key")) setCheck(true)
-        console.log(check);
+        setCheck(true)
     }, [])
-
+    
     if (connected) return <Navigate to='/' />
     
     return (

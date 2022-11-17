@@ -39,9 +39,9 @@ const InputPass = (props) => {
         if (props.extra) props.extra(validation)
     }, [validation])
 
-    React.useEffect(() => {
-        if (props.extra) props.extra(!validation)
-    }, [])
+    // React.useEffect(() => {
+    //     if (props.extra) props.extra(!validation)
+    // }, [])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
