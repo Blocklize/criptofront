@@ -30,7 +30,7 @@ const Login = (props) => {
                 "email": localStorage.getItem("Email"),
                 "password": localStorage.getItem(Password),
             })
-    
+
             let config = {
                 method: 'post',
                 headers: {
@@ -43,7 +43,7 @@ const Login = (props) => {
             await fetch('https://parseapi.back4app.com/functions/login', config)
                 .then(resp => resp.json())
                 .then(json => Object.values(json)[0])
-                .then(u =>  {
+                .then(u => {
                     if (u !== -1 && u !== 101) {
                         localStorage.removeItem(Password)
                         localStorage.setItem("CPF", u.cpf)
@@ -66,12 +66,11 @@ const Login = (props) => {
     }, [valid])
 
     React.useEffect(() => {
-        if(!localStorage.getItem("Key")) setCheck(true)
-        console.log(valid)
-        console.log(email, pass)
+        if (!localStorage.getItem("Key"))
+            setCheck(true)
     }, [])
 
-    if(connected) return <Navigate to='/' />
+    if (connected) return <Navigate to='/' />
     return (
         <div className={styles.container}>
             <div className="row justify-content-center">

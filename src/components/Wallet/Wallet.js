@@ -12,9 +12,9 @@ const Wallet = () => {
     const { connected, setConnected } = React.useContext(WalletContext)
     // States
     const [metamask, setMetamask] = React.useState("")
+    const [dropdown, setDropdown] = React.useState(null)
     // const [connected, setConnected] = React.useState("")
     const [requested, setRequested] = React.useState(false)
-    const [walletAdress, setWalletAdress] = React.useState("")
 
     // Refs
     const walletInfo = React.useRef(null)
@@ -23,6 +23,17 @@ const Wallet = () => {
     React.useEffect(() => {
         window.ethereum ? setMetamask(true) : setMetamask(false)
     }, [])
+
+    // Functions
+    const handleDropdown = () => {
+        setDropdown(!dropdown)
+    }
+
+    const handleDisconnect = () => {
+        setConnected(false)
+        setRequested(false)
+        localStorage.clear()
+    }
 
     // Returns
     if (metamask) {
@@ -42,8 +53,7 @@ const Wallet = () => {
             waitingExtensionResponse()
             await provider.send("eth_requestAccounts", [])
             const address = await signer.getAddress()
-            setWalletAdress(address)
-            localStorage.setItem("Address", walletAdress)
+            localStorage.setItem("Address", address)
             setConnected(true)
         }
 
@@ -51,14 +61,24 @@ const Wallet = () => {
             setRequested(true)
             setTimeout(() => {
                 setRequested(false)
-            }, 15000);
+            }, 15000)
         }
 
         if (connected) {
             return (
-                <div ref={walletInfo} className={styles.header__menu__wallet}>
+                <div ref={walletInfo} className={styles.header__menu__wallet} data-enabled={dropdown} onClick={handleDropdown}>
                     <span className={styles.header__menu__wallet__name}>{minimizeAddress(localStorage.getItem("Address"))}</span>
                     <Jazzicon diameter="30" seed={jsNumberForAddress(minimizeAddress(localStorage.getItem("Address")))} />
+                    <div className={styles.header__menu__wallet__dropdown}>
+                        <ul className={styles.header__menu__wallet__dropdown__list}>
+                            <li className={styles.header__menu__wallet__dropdown__list__item}>
+                                Minha carteira
+                            </li>
+                            <li className={styles.header__menu__wallet__dropdown__list__item} onClick={handleDisconnect}>
+                                Desconectar
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             )
         } else {
