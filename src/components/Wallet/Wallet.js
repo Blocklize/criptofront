@@ -31,6 +31,7 @@ const Wallet = () => {
     }
 
     const handleDisconnect = () => {
+        setUser({})
         setConnected(false)
         setRequested(false)
         localStorage.clear()

@@ -94,11 +94,13 @@ const Login = () => {
     }, [valid])
 
     React.useEffect(() => {
-        if (!localStorage.getItem("Key"))
-            setCheck(true)
+        console.log(check);
+        if (!localStorage.getItem("Key")) setCheck(true)
+        console.log(check);
     }, [])
 
     if (connected) return <Navigate to='/' />
+    
     return (
         <div className={styles.container}>
             <div className="row justify-content-center">
