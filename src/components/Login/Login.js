@@ -8,7 +8,7 @@ import LoginCheckbox from './LoginCheckbox/LoginCheckbox'
 import WalletContext from '../../contexts/WalletContext';
 import { Link, Navigate } from 'react-router-dom'
 
-const Login = (props) => {
+const Login = () => {
     const { connected, setConnected } = React.useContext(WalletContext)
     // Variables
     const Password = "Password"
@@ -43,18 +43,38 @@ const Login = (props) => {
             await fetch('https://parseapi.back4app.com/functions/login', config)
                 .then(resp => resp.json())
                 .then(json => Object.values(json)[0])
-                .then(u => {
+                .then(async u => {
                     if (u !== -1 && u !== 101) {
-                        localStorage.removeItem(Password)
-                        localStorage.setItem("CPF", u.cpf)
-                        localStorage.setItem("Address", u.address)
-                        localStorage.setItem("JWT", u.sessionToken)
+                        localStorage.clear()
+                        await handleUserData(u.sessionToken)
                         setConnected(true)
                     } else {
                         setValid(false)
                     }
                 })
         } else setCheck(false)
+    }
+
+    const handleUserData = async (webToken) => {
+        const config = {
+            method: 'post',
+            headers: {
+                'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
+                'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
+                'X-Parse-Session-Token': webToken,
+                'Content-Type': 'application/json'
+            }
+        }
+        await fetch('https://parseapi.back4app.com/functions/returnUser', config)
+            .then(resp => resp.json())
+            .then(json => {
+                localStorage.setItem("JWT", webToken)
+                localStorage.setItem("CPF", json.result.cpf)
+                localStorage.setItem("Name", json.result.nome)
+                localStorage.setItem("Email", json.result.email)
+                localStorage.setItem("Address", json.result.address)
+            })
+            .catch(error => console.log(error))
     }
 
     React.useEffect(() => {
