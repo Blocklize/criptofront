@@ -2,8 +2,11 @@
 import React from 'react'
 import styles from './InputCPF.module.css'
 import Icon from '../../../assets/icon-cpf.png'
+import UserContext from '../../../contexts/UserContext'
 
 const InputCPF = (props) => {
+    const { user } = React.useContext(UserContext)
+    const [readOnly, setReadOnly] = React.useState(false)
     const [validation, setValidation] = React.useState(true)
     const [storage, setStorage] = React.useState("")
 
@@ -41,8 +44,8 @@ const InputCPF = (props) => {
     }
 
     React.useEffect(() => {
-        if (localStorage.getItem("CPF")) {
-            setStorage(localStorage.getItem("CPF"))
+        if (localStorage.getItem("CPF") || user.CPF) {
+            setStorage(localStorage.getItem("CPF") || user.CPF)
             setValidation(true)
             props.extra(validation)
         }
@@ -55,6 +58,12 @@ const InputCPF = (props) => {
             }
         }
     }, [props.check])
+
+    React.useEffect(() => {
+        if (user.CPF) {
+            setReadOnly(true)
+        }
+    }, [])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
@@ -73,6 +82,7 @@ const InputCPF = (props) => {
                     className={styles.input__field__item}
                     onInput={handleCPF}
                     defaultValue={maskCPF(storage)}
+                    readOnly={readOnly}
                     maxLength={14}
                     minLength={14}
                     type="text"

@@ -5,15 +5,16 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import styles from './Wallet.module.css'
 // Contexts
 import WalletContext from '../../contexts/WalletContext';
+import UserContext from '../../contexts/UserContext';
 
 
 const Wallet = () => {
     // Context
+    const { user, setUser } = React.useContext(UserContext)
     const { connected, setConnected } = React.useContext(WalletContext)
     // States
     const [metamask, setMetamask] = React.useState("")
     const [dropdown, setDropdown] = React.useState(null)
-    // const [connected, setConnected] = React.useState("")
     const [requested, setRequested] = React.useState(false)
 
     // Refs
@@ -69,8 +70,8 @@ const Wallet = () => {
         if (connected) {
             return (
                 <div ref={walletInfo} className={styles.header__menu__wallet} data-enabled={dropdown} onClick={handleDropdown}>
-                    <span className={styles.header__menu__wallet__name}>{minimizeAddress(localStorage.getItem("Address"))}</span>
-                    <Jazzicon diameter="30" seed={jsNumberForAddress(minimizeAddress(localStorage.getItem("Address")))} />
+                    <span className={styles.header__menu__wallet__name}>{minimizeAddress(localStorage.getItem("Address") || user.Address)}</span>
+                    <Jazzicon diameter="30" seed={jsNumberForAddress(minimizeAddress(localStorage.getItem("Address") || user.Address))} />
                     <div className={styles.header__menu__wallet__dropdown}>
                         <ul className={styles.header__menu__wallet__dropdown__list}>
                             <li className={styles.header__menu__wallet__dropdown__list__item}>

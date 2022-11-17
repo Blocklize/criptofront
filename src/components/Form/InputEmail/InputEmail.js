@@ -2,8 +2,11 @@
 import React from 'react'
 import styles from './InputEmail.module.css'
 import Icon from '../../../assets/icon-at.png'
+import UserContext from '../../../contexts/UserContext'
 
 const InputEmail = (props) => {
+    const { user } = React.useContext(UserContext)
+    const [readOnly, setReadOnly] = React.useState(false)
     const [validation, setValidation] = React.useState(true)
     const [storage, setStorage] = React.useState("")
 
@@ -28,8 +31,8 @@ const InputEmail = (props) => {
     }, [])
 
     React.useEffect(() => {
-        if (localStorage.getItem("Email")) {
-            setStorage(localStorage.getItem("Email"))
+        if (localStorage.getItem("Email") || user.Email) {
+            setStorage(localStorage.getItem("Email") || user.Email)
             setValidation(true)
             props.extra(validation)
         }
@@ -42,6 +45,12 @@ const InputEmail = (props) => {
             }
         }
     }, [props.check])
+
+    React.useEffect(() => {
+        if (user.Email) {
+            setReadOnly(true)
+        }
+    }, [])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
@@ -60,6 +69,7 @@ const InputEmail = (props) => {
                     className={styles.input__field__item}
                     onChange={handleValidation}
                     defaultValue={storage}
+                    readOnly={readOnly}
                     type="email"
                     required
                 />

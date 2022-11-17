@@ -5,10 +5,12 @@ import InputPass from '../Form/InputPass/InputPass'
 import InputEmail from '../Form/InputEmail/InputEmail'
 import NextButton from '../Form/NextButton/NextButton'
 import LoginCheckbox from './LoginCheckbox/LoginCheckbox'
+import UserContext from '../../contexts/UserContext';
 import WalletContext from '../../contexts/WalletContext';
 import { Link, Navigate } from 'react-router-dom'
 
 const Login = () => {
+    const { setUser } = React.useContext(UserContext)
     const { connected, setConnected } = React.useContext(WalletContext)
     // Variables
     const Password = "Password"
@@ -47,7 +49,6 @@ const Login = () => {
                     if (u !== -1 && u !== 101) {
                         localStorage.clear()
                         await handleUserData(u.sessionToken)
-                        setConnected(true)
                     } else {
                         setValid(false)
                     }
@@ -68,11 +69,18 @@ const Login = () => {
         await fetch('https://parseapi.back4app.com/functions/returnUser', config)
             .then(resp => resp.json())
             .then(json => {
-                localStorage.setItem("JWT", webToken)
-                localStorage.setItem("CPF", json.result.cpf)
-                localStorage.setItem("Name", json.result.nome)
-                localStorage.setItem("Email", json.result.email)
-                localStorage.setItem("Address", json.result.address)
+                if (!json.error) {
+                    localStorage.setItem("JWT", webToken)
+                    setUser({
+                        CPF: json.result.cpf,
+                        Name: json.result.nome,
+                        Email: json.result.email,
+                        Address: json.result.address,
+                    })
+                    setConnected(true)
+                } else {
+                    setConnected(false)
+                }
             })
             .catch(error => console.log(error))
     }
