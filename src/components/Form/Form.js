@@ -14,6 +14,7 @@ import StepD from './@Steps/StepD'
 import WalletContext from '../../contexts/WalletContext'
 import FormsContext from '../../contexts/FormsContext'
 import TokenContext from '../../contexts/TokenContext'
+import UserContext from '../../contexts/UserContext'
 import Error from './Error/Error'
 
 const Form = () => {
@@ -35,6 +36,7 @@ const Form = () => {
   }
 
   // Context
+  const { user } = React.useContext(UserContext)
   const { token } = React.useContext(TokenContext)
   const { connected } = React.useContext(WalletContext)
   const { setValidated } = React.useContext(FormsContext)
@@ -90,13 +92,12 @@ const Form = () => {
 
   const sendData = async () => {
     var data = JSON.stringify({
-      "quantity": localStorage.getItem("buyValue"),
-      "metamask": localStorage.getItem("Address"),
-      "name": localStorage.getItem("Name"),
-      "email": localStorage.getItem("Email"),
-      // "tokenAddress": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
       "tokenAddress": token.TokenAddress,
-      "cpf": localStorage.getItem("CPF"),
+      "quantity": localStorage.getItem("buyValue"),
+      "cpf": localStorage.getItem("CPF")|| user.CPF,
+      "name": localStorage.getItem("Name")|| user.Name,
+      "email": localStorage.getItem("Email")|| user.Email,
+      "metamask": localStorage.getItem("Address")|| user.Address,
     })
 
     var config = {
@@ -135,9 +136,9 @@ const Form = () => {
   }
 
   const validateStepTwo = async () => {
-    const name = localStorage.getItem("Name")
-    const email = localStorage.getItem("Email")
-    const cpf = localStorage.getItem("CPF")
+    const name = localStorage.getItem("Name") || user.Name
+    const email = localStorage.getItem("Email") || user.Email
+    const cpf = localStorage.getItem("CPF") || user.CPF
     if (name && email && cpf) {
       getWait()
       await sendData()

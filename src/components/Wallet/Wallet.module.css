@@ -6,6 +6,19 @@
     padding: .6rem .8rem;
     backdrop-filter: blur(2rem);
     border-radius: 5rem;
+    transition: .4s linear;
+    position: relative;
+}
+
+.header__menu__wallet:hover,
+.header__menu__wallet[data-enabled="true"] {
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.header__menu__wallet[data-enabled="true"] .header__menu__wallet__dropdown{
+    opacity: 1;
+    height: 5.8rem;
 }
 
 .header__menu__wallet__name {
@@ -16,6 +29,40 @@
 
 .header__menu__wallet__icon {
     width: 1.8rem;
+}
+
+.header__menu__wallet__dropdown {
+    position: absolute;
+    top: 110%;
+    width: 100%;
+    height: auto;
+    background: rgba(34, 9, 50, 0.9);
+    padding: .3rem;
+    backdrop-filter: blur(2rem);
+    border-radius: 1rem;
+    transition: .4s;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+.header__menu__wallet__dropdown__list {
+    margin: 0;
+    list-style: none;
+    padding: 0 .4rem;
+}
+
+.header__menu__wallet__dropdown__list__item {
+    color: #ffffff;
+    padding: .3rem .6rem;
+    margin: .3rem 0;
+    transition: .4s;
+}
+
+.header__menu__wallet__dropdown__list__item:hover {
+    background: rgba(169, 90, 183, 0.1);
+    border-radius: .5rem;
+    color: #9E85F1;
 }
 
 .header__menu__button {

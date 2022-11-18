@@ -8,8 +8,11 @@ import Logo from "../../assets/Logo.png"
 // Components
 import Wallet from "../Wallet/Wallet"
 import { Link } from 'react-router-dom'
+// Context
+import WalletContext from '../../contexts/WalletContext';
 
 const Header = () => {
+    const { connected } = React.useContext(WalletContext)
     return (
         <header className={styles.header}>
             <Link to="/">
@@ -27,9 +30,11 @@ const Header = () => {
                     <li className={styles.header__menu__list__item}>
                         <a href="https://blocklize.tech/pt/homepage/" target="_blank" rel="noopener noreferrer">Equipe</a>
                     </li>
-                    <li className={styles.header__menu__list__item}>
-                        <Link to={'login'}>Login / Cadastro</Link>
-                    </li>
+                    {!connected && (
+                        <li className={styles.header__menu__list__item}>
+                            <Link to={'login'}>Login / Cadastro</Link>
+                        </li>
+                    )}
                 </ul>
                 <Wallet />
             </div>

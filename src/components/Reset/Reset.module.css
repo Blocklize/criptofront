@@ -1,4 +1,4 @@
-.register {
+.reset {
     height: 100%;
     border-radius: 1rem;
     background: rgba(255, 255, 255, .01);
@@ -14,41 +14,41 @@
 }
 
 @media (max-width: 1024px) {
-    .register {
+    .reset {
         min-height: 550px;
         height: 32rem;
         width: 100% !important;
     }
 }
 
-.register__header {
+.reset__header {
     width: 100%;
     text-align: center;
 }
 
-.register__header__title {
+.reset__header__title {
     color: #9E85F1;
     font-size: 1.6rem;
     font-weight: bold;
 }
 
-.register__form {
+.reset__form {
     width: 100%;
     padding: 0 .5rem;
 }
 
 @media (max-width: 1024px) {
-    .register__form {
+    .reset__form {
     padding: 0;
 }
 }
 
-.register__form__links {
+.reset__form__links {
     color: #ffffff;
     margin-top: 2.5rem;
 }
 
-.register__form__links * {
+.reset__form__links * {
     color: #9E85F1 !important;
 }
 

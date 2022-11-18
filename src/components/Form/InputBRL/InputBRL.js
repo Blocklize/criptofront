@@ -2,8 +2,10 @@ import React from 'react'
 import styles from './InputBRL.module.css'
 // Context
 import FormsContext from '../../../contexts/FormsContext'
+import WalletContext from '../../../contexts/WalletContext'
 
 const Input = (props) => {
+    const { connected } = React.useContext(WalletContext)
     const { validated, setValidated } = React.useContext(FormsContext)
     const field = React.useRef(null)
 
@@ -41,6 +43,10 @@ const Input = (props) => {
     React.useEffect(() => {
         field.current.value = maskCurrency(props.value)
     }, [props.value])
+
+    React.useEffect(() => {
+        localStorage.setItem("buyValue", +(field.current.value.replaceAll(".", "").replace(",", ".")))
+    }, [connected])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
