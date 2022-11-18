@@ -1,0 +1,48 @@
+.c {
+    height: 20rem;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error {
+    width: 7rem;
+    height: 7rem;
+    border: .1rem solid #9E85F1;
+    border-radius: 50%;
+    background: rgba(158, 133, 241, .1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto;
+}
+
+.error__media {
+    width: 90%;
+    animation: blink .8s infinite alternate-reverse linear;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #9E85F1;
+    width: 100%;
+}
+
+.text {
+    width: 100%;
+    display: block;
+    color: #9E85F1;
+    display: block;
+    text-align: center;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}

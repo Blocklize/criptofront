@@ -2,6 +2,7 @@
 import './App.css'
 import React from 'react'
 import Reset from './components/Reset/Reset'
+import Recover from './components/Recover/Recover'
 import Login from './components/Login/Login'
 import Header from './components/Header/Header'
 import UserContext from './contexts/UserContext'
@@ -56,10 +57,12 @@ function App() {
           <UserContext.Provider value={{ user, setUser }}>
             <Header />
             <Routes>
+              <Route path='*' element={<Content />} />
               <Route path='/' element={<Content />} />
               <Route path='login' element={<Login />} />
-              <Route path='register' element={<Register />} />
               <Route path='reset' element={<Reset />} />
+              <Route path='register' element={<Register />} />
+              <Route path='recover-password/:id' element={<Recover />} />
             </Routes>
           </UserContext.Provider>
         </WalletContext.Provider>
