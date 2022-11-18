@@ -114,7 +114,7 @@ const Login = () => {
                             <InputPass label="Digite sua senha" distance="1rem" extra={setPass} check={check} kind={Password} />
                             <LoginCheckbox message="Lembrar deste dispositivo" />
                             <p className={styles.login__form__links}>
-                                Esqueceu a sua senha? <Link to="/">Clique aqui</Link> <br />
+                                Esqueceu a sua senha? <Link to="../reset">Clique aqui</Link> <br />
                                 Ainda não tem uma conta? <Link to="../register">Cadastre-se</Link>
                             </p>
                             <NextButton text="Entrar" onClick={handleLogin} />

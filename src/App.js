@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import './App.css';
-import React from 'react';
-import Login from './components/Login/Login';
-import Header from './components/Header/Header';
-import Content from './components/Content/Content';
-import WalletContext from './contexts/WalletContext';
-import UserContext from './contexts/UserContext';
-import Register from './components/Register/Register';
+import './App.css'
+import React from 'react'
+import Reset from './components/Reset/Reset'
+import Login from './components/Login/Login'
+import Header from './components/Header/Header'
+import UserContext from './contexts/UserContext'
+import Content from './components/Content/Content'
+import WalletContext from './contexts/WalletContext'
+import Register from './components/Register/Register'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
               <Route path='/' element={<Content />} />
               <Route path='login' element={<Login />} />
               <Route path='register' element={<Register />} />
+              <Route path='reset' element={<Reset />} />
             </Routes>
           </UserContext.Provider>
         </WalletContext.Provider>
@@ -66,4 +68,4 @@ function App() {
   )
 }
 
-export default App;
+export default App
