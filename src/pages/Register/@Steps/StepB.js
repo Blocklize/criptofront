@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import InputPass from '../../Form/InputPass/InputPass'
+import InputPass from '../../../components/Form/InputPass/InputPass'
 import ProgressBar from '../ProgressBar/ProgressBar'
 import styles from './Steps.module.css'
 

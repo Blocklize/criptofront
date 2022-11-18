@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './Reset.module.css'
-import NextButton from '../Form/NextButton/NextButton'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
+import NextButton from '../../components/Form/NextButton/NextButton'
 import { Link } from 'react-router-dom'
 
 const Register = () => {

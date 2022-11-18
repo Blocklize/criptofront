@@ -1,14 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css'
 import React from 'react'
-import Reset from './components/Reset/Reset'
-import Recover from './components/Recover/Recover'
-import Login from './components/Login/Login'
+// Components
 import Header from './components/Header/Header'
+// Pages
+import Reset from './pages/Reset/Reset'
+import Recover from './pages/Recover/Recover'
+import Login from './pages/Login/Login'
+import Content from './pages/Content/Content'
+import Register from './pages/Register/Register'
+// Contexts
 import UserContext from './contexts/UserContext'
-import Content from './components/Content/Content'
 import WalletContext from './contexts/WalletContext'
-import Register from './components/Register/Register'
+// Routes
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {

@@ -4,7 +4,7 @@ import styles from './Recover.module.css'
 import Error from './Error/Error'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
-import NextButton from '../Form/NextButton/NextButton'
+import NextButton from '../../components/Form/NextButton/NextButton'
 
 import { Link, useParams } from 'react-router-dom'
 

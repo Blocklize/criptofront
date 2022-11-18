@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Register.module.css'
-import NextButton from '../Form/NextButton/NextButton'
+import NextButton from '../../components/Form/NextButton/NextButton'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
 import StepC from './@Steps/StepC'

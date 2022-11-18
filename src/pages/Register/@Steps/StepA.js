@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import InputCPF from '../../Form/InputCPF/InputCPF'
-import InputName from '../../Form/InputName/InputName'
-import InputEmail from '../../Form/InputEmail/InputEmail'
+import InputCPF from '../../../components/Form/InputCPF/InputCPF'
+import InputName from '../../../components/Form/InputName/InputName'
+import InputEmail from '../../../components/Form/InputEmail/InputEmail'
 import styles from './Steps.module.css'
 
 const StepA = (props) => {
