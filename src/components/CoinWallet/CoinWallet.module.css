@@ -9,11 +9,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 @media (max-width: 1024px) {
     .coinwallet__amount {
+        flex-wrap: wrap;
         width: 100%;
     }
 }
