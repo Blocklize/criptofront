@@ -48,7 +48,7 @@
 
 .profile__wallets {
     width:100%;
-    padding: 2rem;
+    padding: 1.7rem;
     padding-right: .5rem;
     background: rgba(62, 54, 69, 0.1);
     backdrop-filter: blur(5rem);
