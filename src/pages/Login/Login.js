@@ -19,6 +19,7 @@ const Login = () => {
     const [email, setEmail] = React.useState(false)
     const [valid, setValid] = React.useState(false)
     const [check, setCheck] = React.useState(true)
+    const [waiting, setWaiting] = React.useState(false)
     // Functions
     const handleValidator = () => {
         if (email && pass) setValid(true)
@@ -28,6 +29,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         if (valid) {
+            setWaiting(true)
             let data = JSON.stringify({
                 "email": localStorage.getItem("Email"),
                 "password": localStorage.getItem(Password),
@@ -52,6 +54,9 @@ const Login = () => {
                     } else {
                         setValid(false)
                     }
+                })
+                .then(() => {
+                    setWaiting(false)
                 })
         } else setCheck(false)
     }
@@ -96,14 +101,14 @@ const Login = () => {
     React.useEffect(() => {
         setCheck(true)
     }, [])
-    
+
     if (connected) return <Navigate to='/' />
-    
+
     return (
         <div className={styles.container}>
             <div className="row justify-content-center">
                 <div className="col-lg-6 d-flex justify-content-center">
-                    <div className={styles.login} disabled={connected}>
+                    <div className={styles.login} disabled={waiting}>
                         <div className={styles.login__header}>
                             <h1 className={styles.login__header__title}>
                                 Insira suas credenciais

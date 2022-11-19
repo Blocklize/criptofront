@@ -1,0 +1,5 @@
+.progress {
+    height: .5rem;
+    border-radius: .25rem;
+    transition: .4s linear;
+}

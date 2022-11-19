@@ -50,9 +50,6 @@ const Form = () => {
   const [transactionId, setTransactionId] = React.useState("")
   const [transactionTime, setTransactionTime] = React.useState("")
   const [transactionPrice, setTransactionPrice] = React.useState("")
-  const [transactionWatcher, setTransactionWatcher] = React.useState(null)
-
-
 
   const [validation, setValidation] = React.useState(false)
   const [check, setCheck] = React.useState(true)
@@ -94,10 +91,10 @@ const Form = () => {
     var data = JSON.stringify({
       "tokenAddress": token.TokenAddress,
       "quantity": localStorage.getItem("buyValue"),
-      "cpf": localStorage.getItem("CPF")|| user.CPF,
-      "name": localStorage.getItem("Name")|| user.Name,
-      "email": localStorage.getItem("Email")|| user.Email,
-      "metamask": localStorage.getItem("Address")|| user.Address,
+      "cpf": localStorage.getItem("CPF") || user.CPF,
+      "name": localStorage.getItem("Name") || user.Name,
+      "email": localStorage.getItem("Email") || user.Email,
+      "metamask": localStorage.getItem("Address") || user.Address,
     })
 
     var config = {
@@ -111,9 +108,13 @@ const Form = () => {
     }
 
     await fetch('https://parseapi.back4app.com/functions/swapPix', config)
-      .then(response => response.json())
+      .then(response => {
+        console.log(response)
+        return response.json()
+      })
       .then(json => {
-        if (json.result.error) {
+        console.log(json)
+        if (json && json.result.error) {
           setStep('Error')
         } else {
           setBrCode(json.result.brCode)
@@ -156,7 +157,6 @@ const Form = () => {
   }
 
   const validateStepThree = async () => {
-    getWatcher()
     var data = JSON.stringify({
       "corrId": corrId
     })
@@ -175,6 +175,7 @@ const Form = () => {
       .then(response => response.json())
       .then(json => {
         setTimeout(() => {
+          console.log(json)
           if (json.result.transactionOutdated === true) {
             setStep("Timeout")
           }
@@ -182,8 +183,6 @@ const Form = () => {
             setTransactionPrice(json.result.amount_BRL)
             setTransactionTime(json.result.time)
             setTransactionId(json.result.corrId)
-            clearTimeout(transactionWatcher)
-            setTransactionWatcher(null)
             setStep(4)
           } else {
             validateStepThree()
@@ -203,14 +202,6 @@ const Form = () => {
     localStorage.removeItem("Address")
   }
 
-  const getWatcher = () => {
-    if (!transactionWatcher) {
-      setTransactionWatcher(setTimeout(() => {
-        setStep('Timeout')
-      }, 60000))
-    }
-  }
-
   // Form validation
 
   const handleValidator = (step) => {
@@ -224,6 +215,12 @@ const Form = () => {
     if (step === 3) validateStepThree()
     if (step === 4) validateStepFour()
   }, [step, validateStepThree, validateStepFour])
+
+  React.useEffect(() => {
+    if (!connected) {
+      setStep(1)
+    }
+  }, [connected])
 
   return (
     <div className={styles.form}>

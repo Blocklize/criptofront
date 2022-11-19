@@ -1,0 +1,86 @@
+.coinwallet {
+    padding: .8rem;
+    margin-bottom: .5rem;
+    background: rgba(60, 52, 65, 0.1);
+    backdrop-filter: blur(1rem);
+    border-radius: .4rem;
+    transition: .4s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.coinwallet:hover,
+.coinwallet[data-active="true"] {
+    background: rgba(182, 167, 190, 0.1);
+}
+
+.coinwallet__info {
+    width: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.coinwallet__info__icon {
+    width: 2.4rem;
+}
+
+.coinwallet__info__info__title {
+    margin: 0;
+    line-height: 1em;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.coinwallet__info__info {
+    margin-left: .5rem;
+    width: 100%;
+}
+
+.coinwallet__info__info__name {
+    margin: 0;
+    line-height: 1em;
+    color: white;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.coinwallet__amount {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+
+.coinwallet__amount__input {
+    background: transparent;
+    text-align: end;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.coinwallet__amount__input[type="password"] {
+    font-size: 1.2rem;
+}
+
+.coinwallet__amount__button {
+    background: transparent;
+    width: 2rem;
+    border: none;
+}
+
+.coinwallet__amount__button:focus {
+    outline: none;
+}
+
+.coinwallet__amount__button img {
+    margin-top: -.2rem;
+    width: 80%;
+}

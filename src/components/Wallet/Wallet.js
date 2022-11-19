@@ -6,6 +6,8 @@ import styles from './Wallet.module.css'
 // Contexts
 import WalletContext from '../../contexts/WalletContext';
 import UserContext from '../../contexts/UserContext';
+// Routes
+import { Link } from 'react-router-dom';
 
 
 const Wallet = () => {
@@ -72,12 +74,14 @@ const Wallet = () => {
             return (
                 <div ref={walletInfo} className={styles.header__menu__wallet} data-enabled={dropdown} onClick={handleDropdown}>
                     <span className={styles.header__menu__wallet__name}>{minimizeAddress(localStorage.getItem("Address") || user.Address)}</span>
-                    <Jazzicon diameter="30" seed={jsNumberForAddress(minimizeAddress(localStorage.getItem("Address") || user.Address))} />
+                    <Jazzicon diameter="30" seed={jsNumberForAddress((localStorage.getItem("Address") || user.Address))} />
                     <div className={styles.header__menu__wallet__dropdown}>
                         <ul className={styles.header__menu__wallet__dropdown__list}>
-                            <li className={styles.header__menu__wallet__dropdown__list__item}>
-                                Minha carteira
-                            </li>
+                            <Link to="../profile">
+                                <li className={styles.header__menu__wallet__dropdown__list__item}>
+                                    Minha carteira
+                                </li>
+                            </Link>
                             <li className={styles.header__menu__wallet__dropdown__list__item} onClick={handleDisconnect}>
                                 Desconectar
                             </li>

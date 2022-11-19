@@ -5,9 +5,10 @@ import React from 'react'
 import Header from './components/Header/Header'
 // Pages
 import Reset from './pages/Reset/Reset'
-import Recover from './pages/Recover/Recover'
 import Login from './pages/Login/Login'
 import Content from './pages/Content/Content'
+import Profile from './pages/Profile/Profile'
+import Recover from './pages/Recover/Recover'
 import Register from './pages/Register/Register'
 // Contexts
 import UserContext from './contexts/UserContext'
@@ -65,6 +66,7 @@ function App() {
               <Route path='/' element={<Content />} />
               <Route path='login' element={<Login />} />
               <Route path='reset' element={<Reset />} />
+              <Route path='profile' element={<Profile />} />
               <Route path='register' element={<Register />} />
               <Route path='recover-password/:id' element={<Recover />} />
             </Routes>
