@@ -8,6 +8,7 @@ import WalletContext from '../../contexts/WalletContext'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { Navigate } from 'react-router-dom'
 import CoinWallet from '../../components/CoinWallet/CoinWallet'
+import Skeleton from './Skeleton/Skeleton'
 
 const Profile = () => {
     const { user, setUser } = React.useContext(UserContext)
@@ -48,7 +49,9 @@ const Profile = () => {
                     return 0;
                 }
                 mappedItems.sort(compare);
-                setTokens(mappedItems)
+                setTimeout(() => {
+                    setTokens(mappedItems)
+                }, 1500);
             })
             .catch(error => {
                 console.log(error)
@@ -80,14 +83,27 @@ const Profile = () => {
                     <div className={styles.profile__wallets}>
                         <h1 className={styles.profile__wallets__title}>Extrato da carteira</h1>
                         <div className={styles.profile__wallets__body}>
+                            {tokens.length === 0 && (
+                                <div>
+                                    <Skeleton />
+                                    <Skeleton />
+                                    <Skeleton />
+                                    <Skeleton />
+                                    <Skeleton />
+                                    <Skeleton />
+                                    <Skeleton />
+                                </div>
+                            )}
                             {
-                                tokens.map(t => (
+                                tokens.length > 0 && tokens.map(t => (
                                     <CoinWallet
                                         key={t.symbol}
                                         symbol={t.symbol}
                                         name={t.name}
                                         address={t.address}
                                         image={t.logoURI}
+                                        decimals={t.decimals}
+                                        wallet={user.Address}
                                     />
                                 ))
                             }

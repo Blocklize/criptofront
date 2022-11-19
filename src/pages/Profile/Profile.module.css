@@ -3,6 +3,7 @@
     max-height: 100vh;
     overflow-y: scroll;
     position: relative;
+    animation: fadeIn .4s forwards ease-out;
 }
 
 .profile::-webkit-scrollbar {
@@ -94,4 +95,12 @@
 .profile__wallets__body::-webkit-scrollbar-thumb {
     background: rgba(131, 101, 233, .4);
     border-radius: 1rem;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(1.6rem);
+    } to {
+        transform: translateY(0);
+    }
 }
