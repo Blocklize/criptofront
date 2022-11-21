@@ -1,0 +1,23 @@
+.datashow {
+    width: 100%;
+    margin: .8rem 0;
+}
+
+.datashow__label {
+    font-size: .9rem;
+    color: #9E85F1;
+}
+
+.datashow__input {
+    width: 100%;
+    border-radius: .4rem;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    background: rgba(16, 6, 24, .8);
+    padding: .5rem;
+}
+
+.datashow__input:focus {
+    outline: none;
+}

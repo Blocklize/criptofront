@@ -1,8 +1,8 @@
 // React
 import React from 'react'
 // Components
-import Carousel from '../Carousel/Carousel'
-import Form from '../Form/Form'
+import Carousel from '../../components/Carousel/Carousel'
+import Form from '../../components/Form/Form'
 // Contexts
 import FormsContext from '../../contexts/FormsContext'
 import TokenContext from '../../contexts/TokenContext'

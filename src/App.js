@@ -1,14 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './App.css'
 import React from 'react'
-import Reset from './components/Reset/Reset'
-import Recover from './components/Recover/Recover'
-import Login from './components/Login/Login'
+// Components
 import Header from './components/Header/Header'
+// Pages
+import Reset from './pages/Reset/Reset'
+import Login from './pages/Login/Login'
+import Content from './pages/Content/Content'
+import Profile from './pages/Profile/Profile'
+import Recover from './pages/Recover/Recover'
+import Register from './pages/Register/Register'
+// Contexts
 import UserContext from './contexts/UserContext'
-import Content from './components/Content/Content'
 import WalletContext from './contexts/WalletContext'
-import Register from './components/Register/Register'
+// Routes
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -61,6 +66,7 @@ function App() {
               <Route path='/' element={<Content />} />
               <Route path='login' element={<Login />} />
               <Route path='reset' element={<Reset />} />
+              <Route path='profile' element={<Profile />} />
               <Route path='register' element={<Register />} />
               <Route path='recover-password/:id' element={<Recover />} />
             </Routes>

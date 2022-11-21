@@ -11,6 +11,7 @@
     flex-wrap: wrap;
     overflow: hidden;
     animation: fadeIn .4s forwards ease-in-out;
+    transition: .4s;
 }
 
 @media (max-width: 1024px) {
@@ -47,7 +48,7 @@
 }
 
 .login[disabled] {
-    opacity: .2;
+    opacity: .2 !important;
     cursor: default;
     touch-action: none;
     pointer-events: none;

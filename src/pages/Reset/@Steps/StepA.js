@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
 import styles from './Steps.module.css'
-import InputEmail from '../../Form/InputEmail/InputEmail'
+import InputEmail from '../../../components/Form/InputEmail/InputEmail'
 
 const StepA = (props) => {
     const [valid, setValid] = React.useState(false)
