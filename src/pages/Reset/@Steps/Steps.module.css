@@ -1,0 +1,58 @@
+.step {
+    height: 19.5rem;
+    animation: fadeIn .4s forwards ease-in-out;
+}
+
+.description {
+    margin-top: 1rem;
+    color: #9E85F1;
+    font-size: .8rem;
+}
+
+.text {
+    color: #9E85F1;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.text__center {
+    text-align: center;
+    color: #9E85F1;
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.waiting {
+    width: 7rem;
+    height: 7rem;
+    border: .1rem solid #9E85F1;
+    border-radius: 50%;
+    background: rgba(158, 133, 241, .1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 3rem auto;
+}
+
+.waiting__media {
+    width: 90%;
+    animation: blink .8s infinite alternate-reverse linear;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
+}

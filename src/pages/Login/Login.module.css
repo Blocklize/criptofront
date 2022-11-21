@@ -1,4 +1,4 @@
-.register {
+.login {
     height: 100%;
     border-radius: 1rem;
     background: rgba(255, 255, 255, .01);
@@ -11,39 +11,69 @@
     flex-wrap: wrap;
     overflow: hidden;
     animation: fadeIn .4s forwards ease-in-out;
+    transition: .4s;
 }
 
-.register__header {
+@media (max-width: 1024px) {
+    .login {
+        min-height: 550px;
+        height: 36rem;
+        width: 100% !important;
+    }
+}
+
+.login__header {
     width: 100%;
     text-align: center;
 }
 
-.register__header__title {
+.login__header__title {
     color: #9E85F1;
     font-size: 1.6rem;
     font-weight: bold;
 }
 
-.register__form {
+.login__form {
     width: 100%;
     padding: 0 .5rem;
 }
 
-.register__form__links {
+.login__form__links {
     color: #ffffff;
     margin-top: 2.5rem;
 }
 
-.register__form__links * {
+.login__form__links * {
     color: #9E85F1 !important;
+}
+
+.login[disabled] {
+    opacity: .2 !important;
+    cursor: default;
+    touch-action: none;
+    pointer-events: none;
+    user-select: none;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(1rem);
-    } to {
+    }
+
+    to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        width: 90% !important;
     }
 }

@@ -2,9 +2,12 @@
 import React from 'react'
 import styles from './InputName.module.css'
 import Icon from '../../../assets/icon-person.png'
+import UserContext from '../../../contexts/UserContext'
 
 const InputName = (props) => {
+    const { user } = React.useContext(UserContext)
     const [validation, setValidation] = React.useState(true)
+    const [readOnly, setReadOnly] = React.useState(false)
     const [storage, setStorage] = React.useState("")
 
     const handleName = (event) => {
@@ -37,8 +40,8 @@ const InputName = (props) => {
     }, [])
 
     React.useEffect(() => {
-        if (localStorage.getItem("Name")) {
-            setStorage(localStorage.getItem("Name"))
+        if (localStorage.getItem("Name") || user.Name) {
+            setStorage(localStorage.getItem("Name") || user.Name)
             setValidation(true)
             props.extra(validation)
         }
@@ -51,6 +54,12 @@ const InputName = (props) => {
             }
         }
     }, [props.check])
+
+    React.useEffect(() => {
+        if (user.Name) {
+            setReadOnly(true)
+        }
+    }, [])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
@@ -70,6 +79,7 @@ const InputName = (props) => {
                     onInput={handleName}
                     onChange={handleValidation}
                     defaultValue={storage}
+                    readOnly={readOnly}
                     type="text"
                     minLength={6}
                     maxLength={50}

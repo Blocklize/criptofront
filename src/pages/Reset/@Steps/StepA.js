@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import InputCPF from '../../Form/InputCPF/InputCPF'
-import InputName from '../../Form/InputName/InputName'
-import InputEmail from '../../Form/InputEmail/InputEmail'
 import styles from './Steps.module.css'
+import InputEmail from '../../../components/Form/InputEmail/InputEmail'
 
 const StepA = (props) => {
     const [valid, setValid] = React.useState(false)
-    const [name, setName] = React.useState(false)
     const [email, setEmail] = React.useState(false)
-    const [cpf, setCpf] = React.useState(false)
     const [check, setCheck] = React.useState(true)
 
     const handleValidator = () => {
-        if (name && email && cpf) setValid(true)
+        if (email) setValid(true)
         else setValid(false)
     }
 
     React.useEffect(() => {
         handleValidator()
-    }, [name, email, cpf])
+    }, [email])
 
     React.useEffect(() => {
         props.extra(valid)
@@ -31,9 +27,16 @@ const StepA = (props) => {
 
     return (
         <div className={styles.step}>
-            <InputName label="Digite seu nome" distance="1rem" extra={setName} check={check} />
+            <p className={styles.text}>
+                Lamentamos que você tenha perdido sua senha.
+                Entretanto, estamos aqui para te ajudar a recuperá-la
+                <br />
+                <br />
+                Primeiro, precisamos que você nos diga qual é 
+                o <b>E-mail cadastrado</b> na sua conta:
+            </p>
             <InputEmail label="Digite seu e-mail" distance="1rem" extra={setEmail} check={check} />
-            <InputCPF label="Digite seu CPF" distance="1rem" extra={setCpf} check={check} />
+            <p className={styles.text}>Enviaremos um link para que você possa criar uma nova senha.</p>
         </div>
     )
 }

@@ -8,6 +8,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1031;
 }
 
 @media (max-width: 1024px) {
@@ -42,4 +43,8 @@
     display: inline-block;
     padding: 0 .5rem;
     color: #9E85F1;
+}
+
+.header__menu__list__item:hover {
+    color: #997bff;
 }

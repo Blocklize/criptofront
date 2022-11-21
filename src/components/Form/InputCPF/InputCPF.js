@@ -2,12 +2,16 @@
 import React from 'react'
 import styles from './InputCPF.module.css'
 import Icon from '../../../assets/icon-cpf.png'
+import UserContext from '../../../contexts/UserContext'
 
 const InputCPF = (props) => {
+    const field = React.useRef(null)
+    const { user } = React.useContext(UserContext)
+    const [readOnly, setReadOnly] = React.useState(false)
     const [validation, setValidation] = React.useState(true)
     const [storage, setStorage] = React.useState("")
 
-    const handleCPF = (event) => {
+    const handleCPF = async (event) => {
         const onlyDigits = event.target.value
             .split("")
             .filter(s => /\d/.test(s))
@@ -18,9 +22,13 @@ const InputCPF = (props) => {
             setValidation(false)
             localStorage.removeItem("CPF")
         } else {
-            setValidation(true)
             setStorage(onlyDigits)
             localStorage.setItem("CPF", onlyDigits)
+            if (props.database !== undefined) {
+                const result = await props.database(onlyDigits)
+                return result === "User not found" ? setValidation(true) : setValidation(false)
+            }
+            else setValidation(true)
         }
     }
 
@@ -41,8 +49,8 @@ const InputCPF = (props) => {
     }
 
     React.useEffect(() => {
-        if (localStorage.getItem("CPF")) {
-            setStorage(localStorage.getItem("CPF"))
+        if (localStorage.getItem("CPF") || user.CPF) {
+            setStorage(localStorage.getItem("CPF") || user.CPF)
             setValidation(true)
             props.extra(validation)
         }
@@ -56,6 +64,22 @@ const InputCPF = (props) => {
         }
     }, [props.check])
 
+    React.useEffect(() => {
+        (async () => {
+            if (props.database !== undefined) {
+                const result = await props.database(localStorage.getItem("CPF")|| "ELIMINA")
+                return result === "User not found" ? setValidation(true) : setValidation(false)
+            }
+            else setValidation(true)
+        })()
+    }, [])
+
+    React.useEffect(() => {
+        if (user.CPF) {
+            setReadOnly(true)
+        }
+    }, [])
+
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>
             <label
@@ -68,11 +92,13 @@ const InputCPF = (props) => {
                     <img className={styles.input__field__icon__media} src={Icon} alt="Icon" />
                 </div>
                 <input
+                    ref={field}
                     id={props.name}
                     name={props.name}
                     className={styles.input__field__item}
                     onInput={handleCPF}
                     defaultValue={maskCPF(storage)}
+                    readOnly={readOnly}
                     maxLength={14}
                     minLength={14}
                     type="text"

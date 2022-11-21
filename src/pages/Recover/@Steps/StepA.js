@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import InputPass from '../../Form/InputPass/InputPass'
-import ProgressBar from '../ProgressBar/ProgressBar'
+import InputPass from '../../../components/Form/InputPass/InputPass'
 import styles from './Steps.module.css'
 
-const StepB = (props) => {
+const StepA = (props) => {
     const [valid, setValid] = React.useState(false)
     const [match, setMatch] = React.useState(false)
     const [pass, setPass] = React.useState(false)
@@ -37,10 +36,9 @@ const StepB = (props) => {
                 Deve ter ao menos um caractere especial. <br />
                 Deve ter ao menos uma letra maiúscula e minúscula;
             </p>
-            <ProgressBar />
             <InputPass label="Confirme a sua senha" distance="1rem" extra={setMatch} check={check} kind={"Match"} />
         </div>
     )
 }
 
-export default StepB
+export default StepA
