@@ -19,7 +19,7 @@ const TokenSelector = () => {
         "COMP", "DAI", "1INCH",
         "MANA", "MATIC", "GNS",
         "AAVE", "UNI", "USDT",
-        "MATIC", "SUPER", "ETH"
+        "WMATIC", "SUPER", "ETH"
     ]
     // Functions
     const handleTokens = async () => {
