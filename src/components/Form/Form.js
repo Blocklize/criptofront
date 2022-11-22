@@ -193,9 +193,6 @@ const Form = () => {
   }
 
   const validateStepFour = () => {
-    localStorage.removeItem("CPF")
-    localStorage.removeItem("Email")
-    localStorage.removeItem("Name")
     localStorage.removeItem("buyValue")
     localStorage.removeItem("Address")
   }

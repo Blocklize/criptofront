@@ -72,10 +72,10 @@ const Profile = () => {
                         <div className={styles.profile__data__picture}>
                             <Jazzicon diameter="266" seed={jsNumberForAddress((localStorage.getItem("Address") || user.Address))} />
                         </div>
-                        <DataShow id="name" label="Nome" info={user.Name} />
-                        <DataShow id="email" label="E-mail" info={user.Email} />
-                        <DataShow id="address" label="Endereço da carteira" info={user.Address} />
-                        <DataShow id="cpf" label="CPF" info={user.CPF} />
+                        <DataShow id="name" label="Nome" info={user.Name || "Usuário da Metamask"} />
+                        <DataShow id="email" label="E-mail" info={user.Email || "Usuário da Metamask"} />
+                        <DataShow id="address" label="Endereço da carteira" info={user.Address || localStorage.getItem("Address")} />
+                        <DataShow id="cpf" label="CPF" info={user.CPF || "Usuário da Metamask"} />
                         <SimpleButton text="Fazer logout" onClick={handleDisconnect} />
                     </div>
                 </div>
