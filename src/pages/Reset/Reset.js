@@ -3,12 +3,14 @@ import styles from './Reset.module.css'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
 import NextButton from '../../components/Form/NextButton/NextButton'
-import { Link } from 'react-router-dom'
+import WalletContext from '../../contexts/WalletContext';
+import { Link, Navigate } from 'react-router-dom'
 
 const Register = () => {
     const [step, setStep] = React.useState(0)
     const [check, setCheck] = React.useState(true)
     const [validation, setValidation] = React.useState(false)
+    const { connected } = React.useContext(WalletContext)
     const buttonText = ["Continuar", "Fazer login"]
 
     const handleStepValidator = (e) => {
@@ -39,6 +41,8 @@ const Register = () => {
             .then(() => handleNextStep(validation))
             .catch(e => { throw e })
     }
+    
+    if (connected) return <Navigate to='/' />
 
     return (
         <div className={styles.container}>
