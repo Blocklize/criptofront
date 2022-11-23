@@ -9,22 +9,12 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { Navigate } from 'react-router-dom'
 import CoinWallet from '../../components/CoinWallet/CoinWallet'
 import Skeleton from './Skeleton/Skeleton'
+import { acceptedTokens } from '../../data/acceptedTokens'
 
 const Profile = () => {
     const { user, setUser } = React.useContext(UserContext)
     const { connected, setConnected } = React.useContext(WalletContext)
     const [tokens, setTokens] = React.useState([])
-
-    const acceptedTokens = [
-        "SUSHI", "ROUTE", "WBTC",
-        "CRV", "OCEAN", "AVAX",
-        "LINK", "GRT", "AXS",
-        "MKR", "SHIB", "WETH",
-        "COMP", "DAI", "1INCH",
-        "MANA", "MATIC", "GNS",
-        "AAVE", "UNI", "USDT",
-        "MATIC", "SUPER", "ETH"
-    ]
 
     const handleDisconnect = () => {
         setUser({})

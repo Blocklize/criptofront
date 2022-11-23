@@ -8,6 +8,7 @@ import styles from './Carousel.module.css'
 // Imports
 import Chevron from '../../assets/chevron.png'
 import Skeleton from './Skeleton/Skeleton'
+import { acceptedTokens } from '../../data/acceptedTokens'
 
 const Carousel = () => {
     // Refs
@@ -27,17 +28,6 @@ const Carousel = () => {
     const [barLeft, setBarLeft] = React.useState("0")
     const [totalScroll, setTotalScroll] = React.useState("")
     const [scrollCounter, setScrollCounter] = React.useState(0)
-    // Constant values
-    const acceptedTokens = [
-        "SUSHI", "ROUTE", "WBTC",
-        "CRV", "OCEAN", "AVAX",
-        "LINK", "GRT", "AXS",
-        "MKR", "SHIB", "WETH",
-        "COMP", "DAI", "1INCH",
-        "MANA", "MATIC", "GNS",
-        "AAVE", "UNI", "USDT",
-        "MATIC", "SUPER", "ETH"
-    ]
 
     React.useEffect(() => {
         const scrollOffset = carousel.current.scrollWidth - (2 * distance)
