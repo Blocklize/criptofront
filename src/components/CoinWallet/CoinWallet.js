@@ -21,10 +21,10 @@ const CoinWallet = (props) => {
         const contractSigner = await newcontract.connect(connectedWallet);
         if (props.symbol === "MATIC") {
             const transact = await web3Provider.getBalance(props.wallet)
-            setValue(parseInt(transact) / Math.pow(10, props.decimals))
+            setValue(parseInt(transact._hex) / Math.pow(10, props.decimals))
         } else {
             const transact = await contractSigner.balanceOf(props.wallet)
-            setValue(parseInt(transact) / Math.pow(10, props.decimals))
+            setValue(parseInt(transact._hex) / Math.pow(10, props.decimals))
         }
     }
 
@@ -43,7 +43,7 @@ const CoinWallet = (props) => {
                 </div>
             </div>
             <div className={styles.coinwallet__amount}>
-                <input className={styles.coinwallet__amount__input} type={visible ? 'text' : 'password'} defaultValue={value.toFixed(5)} readOnly />
+                <input className={styles.coinwallet__amount__input} type={visible ? 'text' : 'password'} value={value.toFixed(5)} readOnly />
                 <button className={styles.coinwallet__amount__button} onClick={handleShow}>
                     <img src={visible ? Eye : EyeOff} alt="Eye icon" />
                 </button>

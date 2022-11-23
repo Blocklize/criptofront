@@ -93,7 +93,7 @@ const Profile = () => {
                                         address={t.address}
                                         image={t.logoURI}
                                         decimals={t.decimals}
-                                        wallet={user.Address}
+                                        wallet={user.Address || localStorage.getItem("Address")}
                                     />
                                 ))
                             }
