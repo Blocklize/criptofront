@@ -16,7 +16,7 @@ const Wallet = () => {
   const { connected, setConnected } = React.useContext(WalletContext);
   // States
   const [metamask, setMetamask] = React.useState("");
-  const [dropdown, setDropdown] = React.useState(null);
+  const [dropdown, setDropdown] = React.useState(false);
   const [requested, setRequested] = React.useState(false);
 
   // Refs
@@ -108,12 +108,37 @@ const Wallet = () => {
       );
     } else {
       return (
-        <button
-          onClick={handleConnectWallet}
+        <div
           className={styles.header__menu__button}
+          onClick={handleDropdown}
+          data-enabled={dropdown}
         >
           {requested === true ? "Aguardando extensão" : "Conectar carteira"}
-        </button>
+          <div className={styles.header__menu__wallet__dropdown}>
+            <ul className={styles.header__menu__wallet__dropdown__list}>
+              <li
+                onClick={handleConnectWallet}
+                className={styles.header__menu__wallet__dropdown__list__item}
+              >
+                Usar metamask
+              </li>
+              <Link to="../login">
+                <li
+                  className={styles.header__menu__wallet__dropdown__list__item}
+                >
+                  Login Blocklize
+                </li>
+              </Link>
+              <Link to="../register">
+                <li
+                  className={styles.dropdown__button}
+                >
+                  Cadastre-se
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </div>
       );
     }
   } else {
@@ -133,11 +158,7 @@ const Wallet = () => {
     } else {
       return (
         <Link to="../login">
-          <button
-            className={styles.header__menu__button}
-          >
-            Fazer login
-          </button>
+          <button className={styles.header__menu__button}>Fazer login</button>
         </Link>
       );
     }
