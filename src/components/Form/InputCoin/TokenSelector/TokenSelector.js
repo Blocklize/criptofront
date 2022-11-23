@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './TokenSelector.module.css'
 import TokenContext from '../../../../contexts/TokenContext'
 import SelectorContext from '../../../../contexts/SelectorContext'
+import { acceptedTokens } from '../../../../data/acceptedTokens'
 
 const TokenSelector = () => {
     // Contexts
@@ -10,17 +11,6 @@ const TokenSelector = () => {
     // States
     const [tokens, setTokens] = React.useState([])
     const { isOpen, setIsOpen } = React.useContext(SelectorContext)
-    // Constant values
-    const acceptedTokens = [
-        "SUSHI", "ROUTE", "WBTC",
-        "CRV", "OCEAN", "AVAX",
-        "LINK", "GRT", "AXS",
-        "MKR", "SHIB", "WETH",
-        "COMP", "DAI", "1INCH",
-        "MANA", "MATIC", "GNS",
-        "AAVE", "UNI", "USDT",
-        "WMATIC", "SUPER", "ETH"
-    ]
     // Functions
     const handleTokens = async () => {
         await fetch('https://api.1inch.io/v4.0/137/tokens')

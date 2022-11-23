@@ -113,7 +113,6 @@ const Form = () => {
         return response.json()
       })
       .then(json => {
-        console.log(json)
         if (json && json.result.error) {
           setStep('Error')
         } else {
@@ -175,7 +174,6 @@ const Form = () => {
       .then(response => response.json())
       .then(json => {
         setTimeout(() => {
-          console.log(json)
           if (json.result.transactionOutdated === true) {
             setStep("Timeout")
           }
@@ -195,9 +193,6 @@ const Form = () => {
   }
 
   const validateStepFour = () => {
-    localStorage.removeItem("CPF")
-    localStorage.removeItem("Email")
-    localStorage.removeItem("Name")
     localStorage.removeItem("buyValue")
     localStorage.removeItem("Address")
   }
