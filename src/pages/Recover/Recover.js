@@ -45,8 +45,8 @@ const Register = () => {
             const config = {
                 method: 'post',
                 headers: {
-                    'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
-                    'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
+                    'X-Parse-Application-Id': process.env.REACT_APP_ID,
+                    'X-Parse-REST-API-Key': process.env.REACT_APP_KEY,
                     'Content-Type': 'application/json'
                 },
                 body: data
