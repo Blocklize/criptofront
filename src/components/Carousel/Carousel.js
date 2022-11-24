@@ -116,7 +116,7 @@ const Carousel = () => {
                 setTokens(mappedItems)
             })
             .catch(error => {
-                console.log(error)
+                {throw error}
             })
     }
 

@@ -26,12 +26,12 @@ const CoinCard = (props) => {
                         setPrice(value)
                     })
                     .catch(error => {
-                        console.log(error)
+                        {throw error}
                         setPrice(0)
                     })
             })
             .catch(error => {
-                console.log(error)
+                {throw error}
                 setPrice(0)
             })
     }

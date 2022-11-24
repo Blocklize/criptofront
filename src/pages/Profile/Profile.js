@@ -42,7 +42,7 @@ const Profile = () => {
         }, 1500);
       })
       .catch((error) => {
-        console.log(error);
+        throw error
       });
   };
 

@@ -52,7 +52,7 @@ function App() {
           setConnected(false)
         }
       })
-      .catch(error => console.log(error))
+      .catch(error => {throw error})
   }
 
   return (

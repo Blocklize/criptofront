@@ -72,12 +72,12 @@ const StepA = () => {
                         setValuation(value)
                     })
                     .catch(error => {
-                        console.log(error)
+                        {throw error}
                         setValuation(0)
                     })
             })
             .catch(error => {
-                console.log(error)
+                {throw error}
                 setValuation(0)
             })
     }

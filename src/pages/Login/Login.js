@@ -89,7 +89,7 @@ const Login = () => {
                     setValid(false)
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => {throw error})
     }
 
     React.useEffect(() => {
