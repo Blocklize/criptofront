@@ -32,6 +32,10 @@ const CoinWallet = (props) => {
         handleWalletBalance()
     }, [])
 
+    React.useEffect(() => {
+        setVisible(props.visibility)
+    }, [props.visibility])
+
     return (
         <div className={styles.coinwallet} data-active={visible}>
             <div className={styles.coinwallet__info}>
