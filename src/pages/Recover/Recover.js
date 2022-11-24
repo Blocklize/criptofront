@@ -5,8 +5,9 @@ import Error from './Error/Error'
 import StepA from './@Steps/StepA'
 import StepB from './@Steps/StepB'
 import NextButton from '../../components/Form/NextButton/NextButton'
+import WalletContext from '../../contexts/WalletContext';
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 
 const Register = () => {
     const { id } = useParams()
@@ -14,6 +15,7 @@ const Register = () => {
     const [error, setError] = React.useState(0)
     const [check, setCheck] = React.useState(true)
     const [validation, setValidation] = React.useState(false)
+    const { connected } = React.useContext(WalletContext)
     const buttonText = ["Continuar", "Fazer login", "Tente novamente"]
 
     const handleStepValidator = (e) => {
@@ -43,8 +45,8 @@ const Register = () => {
             const config = {
                 method: 'post',
                 headers: {
-                    'X-Parse-Application-Id': 'o2j7K6vO2BBQbbcnD6LdMBFWGf9AJxiKalq7EnNc',
-                    'X-Parse-REST-API-Key': 'ouyihXbUZvYCqVhgcz9DHUaKUxiOsb6d51Muk6mD',
+                    'X-Parse-Application-Id': process.env.REACT_APP_ID,
+                    'X-Parse-REST-API-Key': process.env.REACT_APP_KEY,
                     'Content-Type': 'application/json'
                 },
                 body: data
@@ -63,6 +65,8 @@ const Register = () => {
         }
     }
 
+    if (connected) return <Navigate to='/' />
+    
     return (
         <div className={styles.container}>
             <div className="row justify-content-center">
