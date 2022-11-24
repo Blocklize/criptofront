@@ -93,7 +93,7 @@
 }
 
 .header__menu__button:hover,
-.header__menu__button:active {
+.header__menu__button[data-enabled="true"] {
     background: rgba(158, 133, 241, .4);
 }
 
