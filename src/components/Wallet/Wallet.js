@@ -148,12 +148,37 @@ const Wallet = () => {
     };
     if (!isMobile) {
       return (
-        <button
-          onClick={getMetamaskExtension}
+        <div
           className={styles.header__menu__button}
+          onClick={handleDropdown}
+          data-enabled={dropdown}
         >
-          Instalar Metamask
-        </button>
+          {requested === true ? "Aguardando extensão" : "Conectar carteira"}
+          <div className={styles.header__menu__wallet__dropdown}>
+            <ul className={styles.header__menu__wallet__dropdown__list}>
+              <li
+                onClick={getMetamaskExtension}
+                className={styles.header__menu__wallet__dropdown__list__item}
+              >
+                Instalar metamask
+              </li>
+              <Link to="../login">
+                <li
+                  className={styles.header__menu__wallet__dropdown__list__item}
+                >
+                  Login Blocklize
+                </li>
+              </Link>
+              <Link to="../register">
+                <li
+                  className={styles.dropdown__button}
+                >
+                  Cadastre-se
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </div>
       );
     } else {
       return (
