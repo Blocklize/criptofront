@@ -177,7 +177,10 @@ const Form = () => {
           if (json.result.transactionOutdated === true) {
             setStep("Timeout")
           }
-          if (json.result !== "transaction not passed yet") {
+          else if (json.result.cpfCheck === false) {
+            setStep("Error")
+          }
+          else if (json.result !== "transaction not passed yet") {
             setTransactionPrice(json.result.amount_BRL)
             setTransactionTime(json.result.time)
             setTransactionId(json.result.corrId)
