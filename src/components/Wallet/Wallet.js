@@ -113,7 +113,7 @@ const Wallet = () => {
           onClick={handleDropdown}
           data-enabled={dropdown}
         >
-          {requested === true ? "Aguardando extensão" : "Conectar carteira"}
+          {requested === true ? "Aguardando extensão" : "Conectar ou Login"}
           <div className={styles.header__menu__wallet__dropdown}>
             <ul className={styles.header__menu__wallet__dropdown__list}>
               <li
@@ -153,7 +153,7 @@ const Wallet = () => {
           onClick={handleDropdown}
           data-enabled={dropdown}
         >
-          {requested === true ? "Aguardando extensão" : "Conectar carteira"}
+          {requested === true ? "Aguardando extensão" : "Conectar ou Login"}
           <div className={styles.header__menu__wallet__dropdown}>
             <ul className={styles.header__menu__wallet__dropdown__list}>
               <li

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react-hooks/exhaustive-deps */
 
@@ -25,7 +26,7 @@ const Form = () => {
 
   // Button text
   const buttonText = {
-    0: "Conecte a sua carteira",
+    0: "Conecte-se para continuar",
     1: "Continuar para dados",
     2: "Continuar para pagamento",
     3: "Aguardando pagamento...",
