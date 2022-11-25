@@ -4,6 +4,7 @@
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
+    animation: fadeIn .4s forwards;
 }
 
 .error {
@@ -44,5 +45,15 @@
         opacity: 0;
     } to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(1rem);
+    } to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

@@ -87,6 +87,10 @@ const Form = () => {
     setStep("Wait");
   };
 
+  const isEmpty = (obj) => {
+    return Object.keys(obj).length === 0;
+  };
+
   const sendData = async () => {
     var data = JSON.stringify({
       tokenAddress: token.TokenAddress,
@@ -112,16 +116,26 @@ const Form = () => {
         return response.json();
       })
       .then((json) => {
-        if (json && json.result.error) {
-          setStep("Error");
+        console.log(json)
+        if (
+          isEmpty(json) ||
+          json.result.error ||
+          json.result === "erro de validação"
+        ) {
+          setTimeout(() => {
+            setStep("Error");
+          }, 1000);
         } else {
           setBrCode(json.result.brCode);
           setQrCode(json.result.charge.qrCodeImage);
           setCorrId(json.result.charge.correlationID);
+          setTimeout(() => {
+            setStep(3);
+          }, 1000);
         }
       })
       .catch(function (error) {
-        throw error
+        throw error;
       });
   };
 
@@ -140,17 +154,8 @@ const Form = () => {
     const cpf = localStorage.getItem("CPF") || user.CPF;
     if (name && email && cpf) {
       getWait();
-      await sendData();
-      setTimeout(() => {
-        setStep(3);
-      }, 1000);
+      sendData();
     }
-    handleNextStep(validation);
-  };
-
-  const handleNextStep = (bool) => {
-    if (bool) setStep(step + 1);
-    else setCheck(false);
   };
 
   const validateStepThree = async () => {
@@ -190,7 +195,7 @@ const Form = () => {
         }, 10000);
       })
       .catch((error) => {
-        throw error
+        throw error;
       });
   };
 
