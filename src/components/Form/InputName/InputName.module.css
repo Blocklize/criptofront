@@ -13,6 +13,7 @@
     justify-content: space-between;
     border: .1rem solid #9E85F1;
     transition: border .4s linear, background .4s linear;
+    position: relative;
 }
 
 .input__field__icon {
@@ -40,5 +41,17 @@
 .invalid {
     border: .1rem solid #ff0000;
     background: rgba(158, 5, 5, .05);
+}
+
+.invalid::after {
+    position: absolute;
+    content: "Nome inválido";
+    padding: .5rem 1rem;
+    background: #a11919;
+    border-radius: .4rem;
+    font-weight: bold;
+    color: #ffffff;
+    bottom: -1rem;
+    right: -1.5rem;
 }
 
