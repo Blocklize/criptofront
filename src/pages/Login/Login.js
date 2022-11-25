@@ -74,7 +74,6 @@ const Login = () => {
         await fetch('https://parseapi.back4app.com/functions/returnUser', config)
             .then(resp => resp.json())
             .then(json => {
-                console.log(json)
                 if (!json.error) {
                     localStorage.setItem("JWT", webToken)
                     setUser({

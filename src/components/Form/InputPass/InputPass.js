@@ -8,8 +8,11 @@ const InputPass = (props) => {
 
     const handlePassword = (e) => {
         const value = e.target.value
+        if (props.strChanger) {
+            props.strChanger(e.target.value)
+        }
         if (props.kind !== "Password") {
-            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/
             if (passwordRegex.test(value)) {
                 setValidation(true)
                 localStorage.setItem(props.kind, e.target.value)
@@ -38,10 +41,6 @@ const InputPass = (props) => {
     React.useEffect(() => {
         if (props.extra) props.extra(validation)
     }, [validation])
-
-    // React.useEffect(() => {
-    //     if (props.extra) props.extra(!validation)
-    // }, [])
 
     return (
         <div className={styles.input} style={{ marginTop: props.distance }}>

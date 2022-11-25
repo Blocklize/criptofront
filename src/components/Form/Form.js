@@ -117,7 +117,6 @@ const Form = () => {
         return response.json();
       })
       .then((json) => {
-        console.log(json)
         if (
           isEmpty(json) ||
           json.result.error ||
