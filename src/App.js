@@ -15,6 +15,7 @@ import UserContext from './contexts/UserContext'
 import WalletContext from './contexts/WalletContext'
 // Routes
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Verification from './pages/Verification/Verification'
 
 function App() {
   const [user, setUser] = React.useState({})
@@ -69,6 +70,7 @@ function App() {
               <Route path='profile' element={<Profile />} />
               <Route path='register' element={<Register />} />
               <Route path='recover-password/:id' element={<Recover />} />
+              <Route path='confirm-email/:id' element={<Verification />} />
             </Routes>
           </UserContext.Provider>
         </WalletContext.Provider>

@@ -33,8 +33,24 @@ const Form = () => {
     4: "Pagamento realizado!",
     Wait: "Gerando código...",
     Error: "Tente novamente",
+    Limit: "Tente novamente",
+    Invalid: "Tente novamente",
     Timeout: "Tente novamente",
+    Different: "Tente novamente",
   };
+
+  // Step counter exceptions
+
+  const stepCounterExceptions = [
+    2,
+    4,
+    "Wait",
+    "Error",
+    "Limit",
+    "Invalid",
+    "Timeout",
+    "Different"
+  ]
 
   // Context
   const { user } = React.useContext(UserContext);
@@ -117,13 +133,17 @@ const Form = () => {
         return response.json();
       })
       .then((json) => {
-        if (
-          isEmpty(json) ||
-          json.result.error ||
-          json.result === "erro de validação"
-        ) {
+        if (isEmpty(json)) {
+          setTimeout(() => {
+            setStep("Invalid");
+          }, 1000);
+        } else if (json.result.error) {
           setTimeout(() => {
             setStep("Error");
+          }, 1000);
+        } else if (json.result === "erro de validação") {
+          setTimeout(() => {
+            setStep("Limit")
           }, 1000);
         } else {
           setBrCode(json.result.brCode);
@@ -181,7 +201,7 @@ const Form = () => {
       .then((json) => {
         setTimeout(() => {
           if (json.result.cpfCheck === false) {
-            setStep("Error");
+            setStep("Different");
           } else if (json.result.transactionOutdated === true) {
             setStep("Timeout");
           } else if (json.result !== "transaction not passed yet") {
@@ -210,6 +230,9 @@ const Form = () => {
     if (step === 2) validateStepTwo();
     if (step === "Error") setStep(1);
     if (step === "Timeout") setStep(1);
+    if (step === "Invalid") setStep(1);
+    if (step === "Different") setStep(1);
+    if (step === "Limit") setStep(1);
   };
 
   React.useEffect(() => {
@@ -256,7 +279,7 @@ const Form = () => {
             ←{" "}
           </div>
         )}
-        {step !== "Wait" && step !== "Error" && step !== "Timeout" && (
+        {(!stepCounterExceptions.includes(step)) && (
           <div className={styles.form__header__step}>
             Step <span>{step}</span> of 4
           </div>
@@ -289,6 +312,30 @@ const Form = () => {
             message="Um erro aconteceu. Cheque seus dados e tente novamente."
             errorId="130"
             errorName={"UNEXPECTED_ERROR"}
+          />
+        )}
+        {step === "Limit" && (
+          <Error
+            date={new Date(Date.now()).toLocaleString()}
+            message="Um erro aconteceu. Você atingiu o limite de tansações."
+            errorId="142"
+            errorName={"LIMIT_EXCEEDED"}
+          />
+        )}
+        {step === "Invalid" && (
+          <Error
+            date={new Date(Date.now()).toLocaleString()}
+            message="CPF inválido. Cheque seus dados e tente novamente."
+            errorId="131"
+            errorName={"CPF_NOT_ACCEPTED"}
+          />
+        )}
+        {step === "Different" && (
+          <Error
+            date={new Date(Date.now()).toLocaleString()}
+            message="Solicite um reembolso através de contato@blocklize.tech"
+            errorId="132"
+            errorName={"CPF_DOESNT_MATCH"}
           />
         )}
         <NextButton
