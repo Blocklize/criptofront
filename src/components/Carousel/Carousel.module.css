@@ -21,6 +21,7 @@
     scroll-behavior: smooth;
     width: 100%;
     position: relative;
+    scrollbar-width: none;
 }
 
 .carousel__body::-webkit-scrollbar {
